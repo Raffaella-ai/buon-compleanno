@@ -1,0 +1,24 @@
+{
+  "name": "sito",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./output.css --watch",
+    "build": "rm -rf dist && mkdir -p dist && cp index.html script.js dist/ && cp -R assets dist/assets && npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "concurrently": "^9.2.1",
+    "tailwindcss": "^4.2.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8"
+  }
+}
