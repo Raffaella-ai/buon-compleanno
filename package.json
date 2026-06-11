@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./output.css --watch",
-    "build": "rm -rf dist && mkdir -p dist && cp index.html script.js dist/ && cp -R assets dist/assets && npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify"
-  },
+  "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./output.css --watch",
+  "build": "rm -rf dist && mkdir -p dist && cp index.html script.js dist/ && if [ -d assets ]; then cp -R assets dist/assets; fi && npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
