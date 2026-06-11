@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("fireworks-canvas");
     const ctx = canvas.getContext("2d");
 
-    // 1. GESTIONE RESIZE CANVAS & SCENARIO
+    // Gestione Resize Canvas
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -16,43 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // 2. GENERAZIONE STELLE BACKGROUND
-    function generateStars() {
-        const container = document.getElementById("stars-container");
-        const starCount = window.innerWidth < 768 ? 60 : 130; // Meno stelle su mobile per performance
-        
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement("div");
-            star.classList.add("star");
-            
-            // Dimensioni variegate ed eleganti (piccole)
-            const size = Math.random() * 2 + 0.5;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            
-            // Posizionamento casuale
-            star.style.top = `${Math.random() * 100}vh`;
-            star.style.left = `${Math.random() * 100}vw`;
-            
-            // Frequenza di scintillio casuale
-            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            
-            container.appendChild(star);
-        }
-    }
-    generateStars();
+    // NOTA: La funzione generateStars() è stata eliminata! Le performance ringraziano.
 
-    // 3. CONTROLLO IMMAGINE TORTA (Fallback Elegante)
+    // Controllo Immagine Torta (Fallback)
     if (cakeImg) {
         cakeImg.onload = function() {
             cakeImg.classList.remove("hidden");
             if (cakePlaceholder) cakePlaceholder.classList.add("hidden");
         };
-        // Triggera l'errore se non trova il file locale, mantenendo il placeholder attivo
-        cakeImg.onerror = function() {
-            console.log("Immagine cake.png non trovata. Uso del fallback raffinato.");
-        };
-        // Forza il refresh del path
+        cakeImg.onerror = function() { console.log("Uso del fallback per la torta."); };
         cakeImg.src = cakeImg.getAttribute("src");
     }
 
