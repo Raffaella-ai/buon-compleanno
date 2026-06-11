@@ -1,198 +1,185 @@
-const starsLayer = document.getElementById("starsLayer");
-const countdown = document.getElementById("countdown");
-const birthdayTitle = document.getElementById("birthdayTitle");
-const birthdaySubtitle = document.getElementById("birthdaySubtitle");
-const introScreen = document.getElementById("introScreen");
-const cakeScreen = document.getElementById("cakeScreen");
-const cakeImage = document.getElementById("cakeImage");
-const cakeFallback = document.getElementById("cakeFallback");
-const canvas = document.getElementById("fireworksCanvas");
-const ctx = canvas.getContext("2d");
+document.addEventListener("DOMContentLoaded", () => {
+    // Riferimenti DOM
+    const countdownLayer = document.getElementById("countdown-layer");
+    const countdownNumber = document.getElementById("countdown-number");
+    const greetingLayer = document.getElementById("greeting-layer");
+    const cakeImg = document.getElementById("cake-img");
+    const cakePlaceholder = document.getElementById("cake-placeholder");
+    const canvas = document.getElementById("fireworks-canvas");
+    const ctx = canvas.getContext("2d");
 
-let particles = [];
-let animationId = null;
-let fireworksTimer = null;
-
-function wait(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function createStars() {
-  starsLayer.innerHTML = "";
-
-  const isMobile = window.innerWidth < 640;
-  const amount = isMobile ? 90 : 150;
-
-  for (let i = 0; i < amount; i++) {
-    const star = document.createElement("span");
-    star.className = "star";
-
-    const size = Math.random() > 0.86 ? 3 : 2;
-
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.setProperty("--size", `${size}px`);
-    star.style.setProperty("--opacity", `${0.35 + Math.random() * 0.65}`);
-    star.style.setProperty("--duration", `${2 + Math.random() * 4}s`);
-    star.style.setProperty("--delay", `${Math.random() * 2}s`);
-
-    starsLayer.appendChild(star);
-  }
-}
-
-function resizeCanvas() {
-  const ratio = window.devicePixelRatio || 1;
-
-  canvas.width = window.innerWidth * ratio;
-  canvas.height = window.innerHeight * ratio;
-
-  canvas.style.width = `${window.innerWidth}px`;
-  canvas.style.height = `${window.innerHeight}px`;
-
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-}
-
-function createFirework(x, y) {
-  const colors = [
-    "#ffffff",
-    "#f9a8d4",
-    "#f472b6",
-    "#facc15",
-    "#93c5fd",
-    "#c4b5fd"
-  ];
-
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  const amount = window.innerWidth < 640 ? 54 : 82;
-
-  for (let i = 0; i < amount; i++) {
-    const angle = (Math.PI * 2 * i) / amount;
-    const speed = 1.8 + Math.random() * 4.8;
-    const spread = 0.78 + Math.random() * 0.5;
-
-    particles.push({
-      x,
-      y,
-      vx: Math.cos(angle) * speed * spread,
-      vy: Math.sin(angle) * speed * spread,
-      gravity: 0.028 + Math.random() * 0.018,
-      friction: 0.985,
-      alpha: 1,
-      life: 74 + Math.random() * 34,
-      maxLife: 100,
-      color,
-      size: 1.2 + Math.random() * 2.4
-    });
-  }
-}
-
-function animateFireworks() {
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  ctx.globalCompositeOperation = "lighter";
-
-  particles = particles.filter((particle) => {
-    particle.vx *= particle.friction;
-    particle.vy *= particle.friction;
-    particle.vy += particle.gravity;
-
-    particle.x += particle.vx;
-    particle.y += particle.vy;
-
-    particle.life -= 1;
-    particle.alpha = Math.max(particle.life / particle.maxLife, 0);
-
-    ctx.globalAlpha = particle.alpha;
-    ctx.beginPath();
-    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-    ctx.fillStyle = particle.color;
-    ctx.shadowBlur = 22;
-    ctx.shadowColor = particle.color;
-    ctx.fill();
-
-    return particle.life > 0;
-  });
-
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = "source-over";
-
-  if (particles.length > 0 || fireworksTimer) {
-    animationId = requestAnimationFrame(animateFireworks);
-  } else {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    animationId = null;
-  }
-}
-
-function startFireworks(duration = 4600) {
-  fireworksTimer = setInterval(() => {
-    const x = window.innerWidth * (0.16 + Math.random() * 0.68);
-    const y = window.innerHeight * (0.12 + Math.random() * 0.38);
-
-    createFirework(x, y);
-
-    if (!animationId) {
-      animateFireworks();
+    // 1. GESTIONE RESIZE CANVAS & SCENARIO
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-  }, 330);
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
-  setTimeout(() => {
-    clearInterval(fireworksTimer);
-    fireworksTimer = null;
-  }, duration);
-}
+    // 2. GENERAZIONE STELLE BACKGROUND
+    function generateStars() {
+        const container = document.getElementById("stars-container");
+        const starCount = window.innerWidth < 768 ? 60 : 130; // Meno stelle su mobile per performance
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement("div");
+            star.classList.add("star");
+            
+            // Dimensioni variegate ed eleganti (piccole)
+            const size = Math.random() * 2 + 0.5;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            
+            // Posizionamento casuale
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.left = `${Math.random() * 100}vw`;
+            
+            // Frequenza di scintillio casuale
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            
+            container.appendChild(star);
+        }
+    }
+    generateStars();
 
-async function runCountdown() {
-  const numbers = ["3", "2", "1"];
+    // 3. CONTROLLO IMMAGINE TORTA (Fallback Elegante)
+    if (cakeImg) {
+        cakeImg.onload = function() {
+            cakeImg.classList.remove("hidden");
+            if (cakePlaceholder) cakePlaceholder.classList.add("hidden");
+        };
+        // Triggera l'errore se non trova il file locale, mantenendo il placeholder attivo
+        cakeImg.onerror = function() {
+            console.log("Immagine cake.png non trovata. Uso del fallback raffinato.");
+        };
+        // Forza il refresh del path
+        cakeImg.src = cakeImg.getAttribute("src");
+    }
 
-  for (const number of numbers) {
-    countdown.textContent = number;
-    countdown.classList.remove("countdown-bump");
+    // 4. LOGICA DEL COUNTDOWN
+    let currentCount = 3;
+    const countdownInterval = setInterval(() => {
+        currentCount--;
+        
+        // Effetto di zoom out/in fluido al cambio numero
+        countdownNumber.style.transform = "scale(0.5)";
+        countdownNumber.style.opacity = "0";
 
-    void countdown.offsetWidth;
+        setTimeout(() => {
+            if (currentCount > 0) {
+                countdownNumber.textContent = currentCount;
+                countdownNumber.style.transform = "scale(1)";
+                countdownNumber.style.opacity = "1";
+            } else {
+                clearInterval(countdownInterval);
+                startMainScene();
+            }
+        }, 200);
 
-    countdown.classList.add("countdown-bump");
-    await wait(900);
-  }
+    }, 1200); // 1.2 secondi per un ritmo più cinematografico
 
-  countdown.classList.add("opacity-0", "scale-90");
-  await wait(450);
+    // 5. TRANSIZIONE ALLA SCENA PRINCIPALE
+    function startMainScene() {
+        countdownLayer.classList.add("scale-150", "opacity-0");
+        
+        setTimeout(() => {
+            countdownLayer.classList.add("hidden");
+            greetingLayer.classList.remove("hidden");
+            greetingLayer.classList.add("flex");
+            
+            // Facciamo partire i fuochi d'artificio raffinati
+            startFireworks();
+        }, 500);
+    }
 
-  birthdayTitle.classList.add("title-glow");
-  await wait(450);
+    // 6. SISTEMA PARTICELLARE DEI FUOCHI D'ARTIFICIO (Canvas)
+    let particles = [];
+    let animationFrameId;
 
-  birthdaySubtitle.classList.add("subtitle-show");
-  await wait(900);
+    class Particle {
+        constructor(x, y, color) {
+            this.x = x;
+            this.y = y;
+            // Angolo e velocità per un'esplosione circolare ed elegante
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 3 + 1; 
+            
+            this.vx = Math.cos(angle) * speed;
+            this.vy = Math.sin(angle) * speed;
+            this.gravity = 0.04; // Caduta morbida verso il basso
+            this.alpha = 1;
+            // Decadimento lento per una scia romantica
+            this.fade = Math.random() * 0.015 + 0.008; 
+            this.color = color;
+            this.size = Math.random() * 1.5 + 1;
+        }
 
-  startFireworks(4800);
-  await wait(5200);
+        update() {
+            this.vx *= 0.98; // Attrito dell'aria per rallentare dolcemente
+            this.vy *= 0.98;
+            this.vy += this.gravity;
+            this.x += this.vx;
+            this.y += this.vy;
+            this.alpha -= this.fade;
+        }
 
-  introScreen.classList.add("intro-hidden");
-  await wait(700);
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            // Effetto bagliore sulla singola particella
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = this.color;
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.restore();
+        }
+    }
 
-  cakeScreen.classList.add("cake-visible");
-}
+    function spawnFirework() {
+        // Coordinate di spawn calibrate per non coprire troppo il testo centrale
+        const x = Math.random() * (canvas.width * 0.6) + (canvas.width * 0.2);
+        const y = Math.random() * (canvas.height * 0.4) + (canvas.height * 0.15);
+        
+        // Palette raffinata: Oro caldo, Rosa cipria, Bianco riflettente
+        const colors = ["#FBBF24", "#FDE68A", "#FBCFE8", "#F472B6", "#FFFFFF"];
+        const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        const count = window.innerWidth < 768 ? 40 : 75; // Ottimizzazione mobile
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle(x, y, chosenColor));
+        }
+    }
 
-function setupCakeImage() {
-  if (!cakeImage) return;
+    function startFireworks() {
+        // Primi botti istantanei all'apparire della scritta
+        spawnFirework();
+        setTimeout(spawnFirework, 400);
+        setTimeout(spawnFirework, 900);
 
-  const showRealCake = () => {
-    cakeImage.classList.remove("hidden");
-    cakeFallback.classList.add("hidden");
-  };
+        // Continua a sparare fuochi ad intervalli regolari ed eleganti
+        const fireworkInterval = setInterval(() => {
+            if (particles.length < 300) { // Limite per salvaguardare la CPU mobile
+                spawnFirework();
+            }
+        }, 1800);
 
-  if (cakeImage.complete && cakeImage.naturalWidth > 0) {
-    showRealCake();
-  } else {
-    cakeImage.addEventListener("load", showRealCake);
-  }
-}
+        // Ciclo di rendering del Canvas
+        function tick() {
+            // Sfondo semitrasparente per creare l'effetto scia (trail) dei fuochi
+            ctx.fillStyle = "rgba(15, 23, 42, 0.15)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-window.addEventListener("resize", () => {
-  resizeCanvas();
-  createStars();
+            particles = particles.filter(p => p.alpha > 0);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            animationFrameId = requestAnimationFrame(tick);
+        }
+        tick();
+    }
 });
-
-createStars();
-resizeCanvas();
-setupCakeImage();
-runCountdown();
