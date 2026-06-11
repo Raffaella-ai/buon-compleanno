@@ -1,101 +1,111 @@
-const scene = document.querySelector(".scene");
-const starsContainer = document.getElementById("stars");
-const countdownEl = document.getElementById("countdown");
+const starsLayer = document.getElementById("starsLayer");
+const countdown = document.getElementById("countdown");
 const birthdayTitle = document.getElementById("birthdayTitle");
-const intro = document.getElementById("intro");
-const cakeSection = document.getElementById("cakeSection");
+const birthdaySubtitle = document.getElementById("birthdaySubtitle");
+const introScreen = document.getElementById("introScreen");
+const cakeScreen = document.getElementById("cakeScreen");
+const cakeImage = document.getElementById("cakeImage");
+const cakeFallback = document.getElementById("cakeFallback");
 const canvas = document.getElementById("fireworksCanvas");
 const ctx = canvas.getContext("2d");
 
 let particles = [];
-let animationFrameId = null;
-let fireworksInterval = null;
+let animationId = null;
+let fireworksTimer = null;
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function createStars() {
-  const starsNumber = window.innerWidth < 600 ? 75 : 120;
+  starsLayer.innerHTML = "";
 
-  for (let i = 0; i < starsNumber; i++) {
+  const isMobile = window.innerWidth < 640;
+  const amount = isMobile ? 90 : 150;
+
+  for (let i = 0; i < amount; i++) {
     const star = document.createElement("span");
     star.className = "star";
 
+    const size = Math.random() > 0.86 ? 3 : 2;
+
     star.style.left = `${Math.random() * 100}%`;
     star.style.top = `${Math.random() * 100}%`;
-    star.style.setProperty("--duration", `${1.8 + Math.random() * 3.8}s`);
+    star.style.setProperty("--size", `${size}px`);
     star.style.setProperty("--opacity", `${0.35 + Math.random() * 0.65}`);
+    star.style.setProperty("--duration", `${2 + Math.random() * 4}s`);
+    star.style.setProperty("--delay", `${Math.random() * 2}s`);
 
-    const size = Math.random() > 0.82 ? 3 : 2;
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
-
-    starsContainer.appendChild(star);
+    starsLayer.appendChild(star);
   }
 }
 
 function resizeCanvas() {
-  const pixelRatio = window.devicePixelRatio || 1;
+  const ratio = window.devicePixelRatio || 1;
 
-  canvas.width = window.innerWidth * pixelRatio;
-  canvas.height = window.innerHeight * pixelRatio;
+  canvas.width = window.innerWidth * ratio;
+  canvas.height = window.innerHeight * ratio;
 
   canvas.style.width = `${window.innerWidth}px`;
   canvas.style.height = `${window.innerHeight}px`;
 
-  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 }
 
 function createFirework(x, y) {
   const colors = [
-    "#ff477e",
-    "#ffbe0b",
     "#ffffff",
-    "#9b5de5",
-    "#00f5d4",
-    "#f15bb5"
+    "#f9a8d4",
+    "#f472b6",
+    "#facc15",
+    "#93c5fd",
+    "#c4b5fd"
   ];
 
   const color = colors[Math.floor(Math.random() * colors.length)];
-  const particlesNumber = window.innerWidth < 600 ? 55 : 85;
+  const amount = window.innerWidth < 640 ? 54 : 82;
 
-  for (let i = 0; i < particlesNumber; i++) {
-    const angle = Math.PI * 2 * (i / particlesNumber);
-    const speed = 1.8 + Math.random() * 4.2;
+  for (let i = 0; i < amount; i++) {
+    const angle = (Math.PI * 2 * i) / amount;
+    const speed = 1.8 + Math.random() * 4.8;
+    const spread = 0.78 + Math.random() * 0.5;
 
     particles.push({
       x,
       y,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
+      vx: Math.cos(angle) * speed * spread,
+      vy: Math.sin(angle) * speed * spread,
+      gravity: 0.028 + Math.random() * 0.018,
+      friction: 0.985,
       alpha: 1,
-      life: 80 + Math.random() * 20,
+      life: 74 + Math.random() * 34,
+      maxLife: 100,
       color,
-      size: 1.4 + Math.random() * 2.2
+      size: 1.2 + Math.random() * 2.4
     });
   }
 }
 
 function animateFireworks() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
   ctx.globalCompositeOperation = "lighter";
 
   particles = particles.filter((particle) => {
+    particle.vx *= particle.friction;
+    particle.vy *= particle.friction;
+    particle.vy += particle.gravity;
+
     particle.x += particle.vx;
     particle.y += particle.vy;
-    particle.vy += 0.035;
-    particle.vx *= 0.99;
-    particle.vy *= 0.99;
+
     particle.life -= 1;
-    particle.alpha = Math.max(particle.life / 100, 0);
+    particle.alpha = Math.max(particle.life / particle.maxLife, 0);
 
     ctx.globalAlpha = particle.alpha;
     ctx.beginPath();
     ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
     ctx.fillStyle = particle.color;
-    ctx.shadowBlur = 18;
+    ctx.shadowBlur = 22;
     ctx.shadowColor = particle.color;
     ctx.fill();
 
@@ -105,69 +115,84 @@ function animateFireworks() {
   ctx.globalAlpha = 1;
   ctx.globalCompositeOperation = "source-over";
 
-  if (particles.length > 0 || fireworksInterval) {
-    animationFrameId = requestAnimationFrame(animateFireworks);
+  if (particles.length > 0 || fireworksTimer) {
+    animationId = requestAnimationFrame(animateFireworks);
   } else {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    animationFrameId = null;
+    animationId = null;
   }
 }
 
-function startFireworks(duration = 4800) {
-  scene.classList.add("fireworks-on");
-
-  fireworksInterval = setInterval(() => {
-    const x = window.innerWidth * (0.15 + Math.random() * 0.7);
-    const y = window.innerHeight * (0.12 + Math.random() * 0.42);
+function startFireworks(duration = 4600) {
+  fireworksTimer = setInterval(() => {
+    const x = window.innerWidth * (0.16 + Math.random() * 0.68);
+    const y = window.innerHeight * (0.12 + Math.random() * 0.38);
 
     createFirework(x, y);
 
-    if (!animationFrameId) {
+    if (!animationId) {
       animateFireworks();
     }
-  }, 360);
+  }, 330);
 
   setTimeout(() => {
-    clearInterval(fireworksInterval);
-    fireworksInterval = null;
-    scene.classList.remove("fireworks-on");
+    clearInterval(fireworksTimer);
+    fireworksTimer = null;
   }, duration);
 }
 
-async function startExperience() {
+async function runCountdown() {
   const numbers = ["3", "2", "1"];
 
   for (const number of numbers) {
-    countdownEl.textContent = number;
-    countdownEl.classList.remove("pulse");
+    countdown.textContent = number;
+    countdown.classList.remove("countdown-bump");
 
-    void countdownEl.offsetWidth;
+    void countdown.offsetWidth;
 
-    countdownEl.classList.add("pulse");
+    countdown.classList.add("countdown-bump");
     await wait(900);
   }
 
-  countdownEl.classList.add("hidden");
-
+  countdown.classList.add("opacity-0", "scale-90");
   await wait(450);
 
-  birthdayTitle.classList.add("show");
+  birthdayTitle.classList.add("title-glow");
+  await wait(450);
 
+  birthdaySubtitle.classList.add("subtitle-show");
   await wait(900);
 
-  startFireworks(5200);
-
+  startFireworks(4800);
   await wait(5200);
 
-  intro.classList.add("hide");
+  introScreen.classList.add("intro-hidden");
+  await wait(700);
 
-  await wait(900);
-
-  cakeSection.classList.add("show");
+  cakeScreen.classList.add("cake-visible");
 }
 
-window.addEventListener("resize", resizeCanvas);
+function setupCakeImage() {
+  if (!cakeImage) return;
+
+  const showRealCake = () => {
+    cakeImage.classList.remove("hidden");
+    cakeFallback.classList.add("hidden");
+  };
+
+  if (cakeImage.complete && cakeImage.naturalWidth > 0) {
+    showRealCake();
+  } else {
+    cakeImage.addEventListener("load", showRealCake);
+  }
+}
+
+window.addEventListener("resize", () => {
+  resizeCanvas();
+  createStars();
+});
 
 createStars();
 resizeCanvas();
-startExperience();
+setupCakeImage();
+runCountdown();
