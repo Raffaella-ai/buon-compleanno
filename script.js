@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.x += this.vx;
             this.y += this.vy;
             this.alpha -= this.fade;
+            if (this.size > 0.1) this.size -= 0.01;
         }
 
         draw() {
@@ -139,12 +140,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Ciclo di rendering del Canvas
         function tick() {
-            // Sfondo semitrasparente per creare l'effetto scia (trail) dei fuochi
-            ctx.fillStyle = "rgba(15, 23, 42, 0.15)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // 1. Invece di fillRect con un colore, usiamo clearRect per svuotare il canvas mantenendo la trasparenza
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // 2. Filtriamo le particelle ancora vive
             particles = particles.filter(p => p.alpha > 0);
 
+            // 3. Aggiorniamo e disegnamo le particelle
             particles.forEach(p => {
                 p.update();
                 p.draw();
@@ -154,4 +156,63 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         tick();
     }
+
+
+    // === GESTIONE INTEGRATION STEP 2: SOFFIO CANDELINE ===
+    const blowButton = document.getElementById("blow-button");
+    const flames = document.querySelectorAll(".flame");
+    const smokes = document.querySelectorAll(".smoke-puff");
+    const cakeContainer = document.getElementById("cake-container");
+    const desireText = document.getElementById("desire-text");
+    const romanticText = document.getElementById("romantic-text");
+
+    if (blowButton) {
+        blowButton.addEventListener("click", (e) => {
+            // Lasciamo solo il click, che viene gestito nativamente sia da desktop che da mobile (tap)
+            if (blowButton.disabled) return;
+            blowButton.disabled = true;
+
+            blowButton.classList.add("opacity-0", "scale-95", "pointer-events-none");
+
+            flames.forEach(flame => {
+                flame.classList.remove("animate-flame-flicker");
+                flame.classList.add("animate-flame-blown");
+            });
+
+            flames.forEach((flame, index) => {
+                setTimeout(() => {
+                    flame.classList.remove("animate-flame-blown");
+                    flame.classList.add("flame-extinct");
+
+                    if (smokes[index]) smokes[index].classList.add("smoke-active");
+
+                    if (index === flames.length - 1) {
+                        triggerFinalRomanceEffects();
+                    }
+                }, 400 + (index * 250));
+            });
+        });
+    }
+
+    function triggerFinalRomanceEffects() {
+        // 1. Delicato lampo di luce soft/warm attorno alla torta
+        if (cakeContainer) {
+            cakeContainer.classList.add("cake-glow-flash");
+        }
+
+        // 2. Transizione del messaggio romantico unico
+        if (desireText) {
+            // Sfuma il vecchio testo "Esprimi un desiderio"
+            desireText.classList.add("opacity-0");
+            
+            setTimeout(() => {
+                // Nuovo testo principale senza la frase che abbiamo tolto
+                desireText.innerHTML = "Che ogni tuo desiderio possa trovare sempre la strada per avverarsi. <span class='text-pink-300'>✨</span>";
+                desireText.classList.remove("opacity-0");
+                desireText.classList.add("text-transparent", "bg-clip-text", "bg-gradient-to-r", "from-pink-200", "to-amber-200", "font-serif", "italic");
+            }, 1000);
+        }
+    }
+
 });
+

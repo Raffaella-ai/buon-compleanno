@@ -8,7 +8,11 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-svh overflow-x-hidden font-sans antialiased select-none relative">
 
-    <div class="fixed inset-0 z-0 bg-slate-950 bg-[url('assets/images/bg-cielo.jpg')] bg-cover bg-center bg-no-repeat"></div>
+    <div class="fixed inset-0 z-0">
+        <div class="absolute inset-0 bg-[url('assets/images/bg-cielo.jpg')] bg-cover bg-center bg-no-repeat"></div>
+        
+        <div class="absolute inset-0 bg-slate-950/50 backdrop-blur-[1px]"></div>
+    </div>
     <canvas id="fireworks-canvas" class="fixed inset-0 z-10 pointer-events-none w-full h-full"></canvas>
 
     <main class="relative z-20 w-full">
@@ -26,39 +30,54 @@
                     Buon Compleanno
                 </h1>
                 
-                <div class="relative w-48 h-48 md:w-64 md:w-64 flex items-center justify-center group animate-float mt-12">
+                <div id="cake-container" class="relative w-48 h-48 md:w-64 flex items-center justify-center group animate-float mt-12 transition-all duration-1000 rounded-full">
+                    
                     <div class="absolute -top-4 flex space-x-6 z-30">
                         <div class="candle relative w-2 h-12 bg-gradient-to-t from-sky-700 to-yellow-300 rounded-sm">
-                            <div class="flame"></div>
+                            <div class="flame animate-flame-flicker"></div>
+                            <div class="smoke-puff"></div>
                         </div>
                         <div class="candle relative w-2 h-14 bg-gradient-to-t from-yellow-300 to-sky-600 rounded-sm -top-2">
-                            <div class="flame"></div>
+                            <div class="flame animate-flame-flicker" style="animation-delay: 0.2s;"></div>
+                            <div class="smoke-puff"></div>
                         </div>
                         <div class="candle relative w-2 h-12 bg-gradient-to-t from-sky-600 to-yellow-300 rounded-sm">
-                            <div class="flame"></div>
+                            <div class="flame animate-flame-flicker" style="animation-delay: 0.4s;"></div>
+                            <div class="smoke-puff"></div>
                         </div>
                     </div>
 
                     <div class="w-full h-full flex items-center justify-center">
-                        <img id="cake-img" src="assets/images/cake.png" alt="Torta di Compleanno" 
-                            class="w-full h-full object-contain hidden">
+                        <img id="cake-img" src="assets/images/cake.png" alt="Torta di Compleanno" class="w-full h-full object-contain hidden">
                         <div id="cake-placeholder" class="w-40 h-40 md:w-52 md:h-52 rounded-full border border-dashed border-amber-200/30 flex flex-col items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
                             <span class="text-amber-200/60 text-sm italic">✨ Una dolce sorpresa ✨</span>
                         </div>
                     </div>
                 </div>
 
-                <p class="text-lg md:text-xl font-light tracking-widest text-pink-100/80 animate-pulse mt-6">
-                    Esprimi un desiderio <span class="text-amber-300">✨</span>
-                </p>
+                <div class="space-y-4 min-h-[80px] flex flex-col items-center justify-center">
+                    <p id="desire-text" class="text-lg md:text-xl font-light tracking-widest text-pink-100/80 transition-all duration-1000 ease-in-out">
+                        Esprimi un desiderio <span class="text-amber-300">✨</span>
+                    </p>
+                    <p id="romantic-text" class="text-base md:text-lg font-serif italic tracking-wide text-amber-200/0 max-w-md h-0 overflow-hidden transition-all duration-1000 ease-in-out transform translate-y-4"></p>
+                </div>
+
+                <button id="blow-button" class="relative px-8 py-3 rounded-full bg-gradient-to-r from-pink-500/20 to-amber-500/20 border border-pink-300/30 text-pink-100 tracking-widest text-sm uppercase transition-all duration-500 hover:from-pink-500/30 hover:to-amber-500/30 hover:border-pink-300/60 hover:scale-105 active:scale-95 focus:outline-none backdrop-blur-md shadow-lg cursor-pointer select-none">
+                    Soffia sulle candeline
+                </button>
             </div>
+
         </section>
         
+    
+    
+    
+    
     </main>
         
 
     <script src="script.js"></script>
-    
+
 </body>
 
 </html>
