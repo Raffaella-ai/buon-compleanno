@@ -6,13 +6,15 @@
     <title>Buon Compleanno Amore</title>
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-svh overflow-hidden font-sans antialiased select-none">
+<body class="bg-slate-950 text-slate-100 min-h-svh overflow-x-hidden font-sans antialiased select-none relative">
 
-    <div class="absolute inset-0 z-0 bg-slate-950 bg-[url('assets/images/bg-cielo.jpg')] bg-cover bg-center bg-no-repeat">
-        <canvas id="fireworks-canvas" class="absolute inset-0 z-10 pointer-events-none w-full h-full"></canvas>
+    <div class="fixed inset-0 z-0 bg-slate-950 bg-[url('assets/images/bg-cielo.jpg')] bg-cover bg-center bg-no-repeat"></div>
+    <canvas id="fireworks-canvas" class="fixed inset-0 z-10 pointer-events-none w-full h-full"></canvas>
 
-        <main class="relative z-20 flex flex-col items-center justify-center min-h-svh w-full px-6 text-center">
+    <main class="relative z-20 w-full">
 
+        <!-- PRIMA SEZIONE: Countdown e Torta -->
+        <section id="hero-birthday-section" class="flex flex-col items-center justify-center min-h-svh w-full px-6 text-center">
             <div id="countdown-layer" class="flex items-center justify-center transition-all duration-500">
                 <span id="countdown-number" class="text-7xl md:text-9xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-amber-500 drop-shadow-glow">
                     3
@@ -50,11 +52,13 @@
                     Esprimi un desiderio <span class="text-amber-300">✨</span>
                 </p>
             </div>
-        </main>
+        </section>
         
-    </div>
+    </main>
+        
 
     <script src="script.js"></script>
+    
 </body>
 
 </html>
