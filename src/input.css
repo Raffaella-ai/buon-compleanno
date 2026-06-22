@@ -75,46 +75,29 @@
 }
 
 @layer utilities {
-  /* Tremolio naturale della fiamma viva */
-  .animate-flame-flicker {
-    animation: flicker 1.5s infinite alternate ease-in-out;
-  }
-
-  /* Tremolio forte pre-spegnimento (quando si soffia) */
-  .animate-flame-blown {
-    animation: violent-flicker 0.4s infinite alternate ease-in-out;
-  }
-
-  /* Animazione spegnimento candela */
-  .flame-extinct {
-    animation: extinguish 0.3s forwards cubic-bezier(0.4, 0, 1, 1);
-  }
-
-  /* Effetto fumo elegante */
-  .smoke-active {
-    animation: smoke-rise 2s forwards ease-out;
-  }
-
-  /* Flash di luce delicato sulla torta */
-  .cake-glow-flash {
-    animation: gentle-flash 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-  }
+  /* Forziamo la scomparsa totale e lo spegnimento della fiamma (Fuori dai layer per priorità assoluta) */
+.flame.flame-extinct {
+  animation: extinguish 0.4s forwards cubic-bezier(0.4, 0, 1, 1) !important;
+  background: none !important;
+  box-shadow: none !important;
+  opacity: 0 !important;
 }
 
-/* Stili base per fiamme e fumo se non definiti */
-.flame {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 18px;
-  background: radial-gradient(circle at 50% 80%, #fff 20%, #fef08a 50%, #f59e0b 80%, transparent);
-  border-radius: 50% 50% 20% 20%;
-  box-shadow: 0 0 10px #f59e0b, 0 0 20px #ef4444;
-  transform-origin: center bottom;
+.flame.animate-flame-blown {
+  animation: violent-flicker 0.3s infinite alternate ease-in-out !important;
 }
 
+/* Attivazione del fumo elegante */
+.smoke-puff.smoke-active {
+  animation: smoke-rise 2s forwards ease-out !important;
+}
+
+/* Flash di luce delicato sulla torta */
+.cake-glow-flash {
+  animation: gentle-flash 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Stile base del fumo */
 .smoke-puff {
   position: absolute;
   top: -16px;
@@ -122,38 +105,27 @@
   transform: translateX(-50%);
   width: 4px;
   height: 4px;
-  background: rgba(241, 245, 249, 0.4);
+  background: rgba(241, 245, 249, 0.5);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
 }
 
-/* KEYFRAMES ANIMAZIONI */
-@keyframes flicker {
-  0%, 100% { transform: translateX(-50%) scale(1) rotate(-1deg); opacity: 0.95; }
-  50% { transform: translateX(-50%) scale(1.05) rotate(1deg); opacity: 1; }
-}
-
+/* KEYFRAMES PER STEP 2 */
 @keyframes violent-flicker {
-  0% { transform: translateX(-50%) scale(0.9) skewX(-8deg) scaleY(0.7); opacity: 0.8; }
-  100% { transform: translateX(-50%) scale(1.1) skewX(12deg) scaleY(0.5); opacity: 0.9; }
+  0% { transform: translateX(-50%) scale(0.9) skewX(-10deg) scaleY(0.6); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(1.1) skewX(15deg) scaleY(0.4); opacity: 0.8; }
 }
 
 @keyframes extinguish {
-  0% { 
-    transform: translateX(-50%) scale(0.8) skewX(10deg); 
-    opacity: 0.8; 
-  }
-  100% { 
-    transform: translateX(-50%) scale(0); 
-    opacity: 0;
-  }
+  0% { transform: translateX(-50%) scale(0.8) skewX(10deg); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(0); opacity: 0; }
 }
 
 @keyframes smoke-rise {
-  0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.5; filter: blur(1px); }
-  30% { transform: translateX(-35%) translateY(-15px) scale(2.5); opacity: 0.3; filter: blur(2px); }
-  100% { transform: translateX(-60%) translateY(-45px) scale(4); opacity: 0; filter: blur(5px); }
+  0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.6; filter: blur(1px); }
+  30% { transform: translateX(-30%) translateY(-12px) scale(2.5); opacity: 0.3; filter: blur(2px); }
+  100% { transform: translateX(-50%) translateY(-40px) scale(4); opacity: 0; filter: blur(4px); }
 }
 
 @keyframes gentle-flash {
@@ -162,16 +134,18 @@
   100% { box-shadow: 0 0 0px 0px rgba(251, 207, 232, 0); }
 }
 
-/* Rispetto per le preferenze di movimento ridotto */
+/* Rispetto per prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-flame-flicker, .animate-flame-blown {
+  .animate-flame-blown {
     animation: none !important;
   }
-  .smoke-active {
-    animation: fade-in-out 1s forwards;
+  .smoke-puff.smoke-active {
+    animation: fade-in-out 1s forwards !important;
   }
   @keyframes fade-in-out {
     0%, 100% { opacity: 0; }
-    50% { opacity: 0.3; }
+    50% { opacity: 0.4; }
   }
+}
+
 }

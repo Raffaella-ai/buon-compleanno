@@ -175,7 +175,10 @@ document.addEventListener("DOMContentLoaded", () => {
             blowButton.classList.add("opacity-0", "scale-95", "pointer-events-none");
 
             flames.forEach(flame => {
-                flame.classList.remove("animate-flame-flicker");
+                // Rimuoviamo l'animazione in linea o classi precedenti per resettare lo stato
+                flame.style.animation = "none"; 
+                // Forza il ricalcolo del layout del browser (trick fondamentale per i reset CSS delle animazioni)
+                void flame.offsetWidth; 
                 flame.classList.add("animate-flame-blown");
             });
 
@@ -184,7 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     flame.classList.remove("animate-flame-blown");
                     flame.classList.add("flame-extinct");
 
-                    if (smokes[index]) smokes[index].classList.add("smoke-active");
+                    if (smokes[index]) {
+                        smokes[index].classList.add("smoke-active");
+                    }
 
                     if (index === flames.length - 1) {
                         triggerFinalRomanceEffects();
@@ -195,23 +200,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function triggerFinalRomanceEffects() {
-        // 1. Delicato lampo di luce soft/warm attorno alla torta
         if (cakeContainer) {
             cakeContainer.classList.add("cake-glow-flash");
         }
 
-        // 2. Transizione del messaggio romantico unico
         if (desireText) {
-            // Sfuma il vecchio testo "Esprimi un desiderio"
             desireText.classList.add("opacity-0");
             
             setTimeout(() => {
-                // Nuovo testo principale senza la frase che abbiamo tolto
+                // Sostituiamo il testo "Esprimi un desiderio" con la dedica finale
                 desireText.innerHTML = "Che ogni tuo desiderio possa trovare sempre la strada per avverarsi. <span class='text-pink-300'>✨</span>";
                 desireText.classList.remove("opacity-0");
                 desireText.classList.add("text-transparent", "bg-clip-text", "bg-gradient-to-r", "from-pink-200", "to-amber-200", "font-serif", "italic");
+                
+                // Facciamo subentrare la freccina al posto del bottone
+                const scrollBtn = document.getElementById("scroll-to-letter");
+                if (scrollBtn) {
+                    scrollBtn.classList.remove("hidden");
+                    setTimeout(() => {
+                        scrollBtn.classList.remove("opacity-0", "translate-y-4");
+                        scrollBtn.classList.add("opacity-100", "translate-y-0");
+                    }, 400); // Entrata fluida dopo il testo
+                }
+
             }, 1000);
         }
+    }
+
+
+
+
+
+    const scrollToLetterBtn = document.getElementById("scroll-to-letter");
+    const letterSection = document.getElementById("letter-section"); // Assicurati che la sezione successiva abbia questo ID!
+
+    if (scrollToLetterBtn && letterSection) {
+        scrollToLetterBtn.addEventListener("click", () => {
+            letterSection.scrollIntoView({ 
+                behavior: "smooth", 
+                block: "start" 
+            });
+        });
     }
 
 });
