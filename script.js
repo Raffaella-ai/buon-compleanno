@@ -167,18 +167,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const romanticText = document.getElementById("romantic-text");
 
     if (blowButton) {
-        blowButton.addEventListener("click", (e) => {
-            // Lasciamo solo il click, che viene gestito nativamente sia da desktop che da mobile (tap)
-            if (blowButton.disabled) return;
-            blowButton.disabled = true;
+        blowButton.addEventListener("click", () => {
+            console.log("Click sul bottone soffio ricevuto");
 
+            if (blowButton.disabled) return;
+
+            blowButton.disabled = true;
             blowButton.classList.add("opacity-0", "scale-95", "pointer-events-none");
 
-            flames.forEach(flame => {
-                // Rimuoviamo l'animazione in linea o classi precedenti per resettare lo stato
-                flame.style.animation = "none"; 
-                // Forza il ricalcolo del layout del browser (trick fondamentale per i reset CSS delle animazioni)
-                void flame.offsetWidth; 
+            flames.forEach((flame) => {
+                flame.style.animation = "";
+                flame.classList.remove("flame-extinct", "animate-flame-blown");
+
+                void flame.offsetWidth;
+
                 flame.classList.add("animate-flame-blown");
             });
 
@@ -194,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (index === flames.length - 1) {
                         triggerFinalRomanceEffects();
                     }
-                }, 400 + (index * 250));
+                }, 400 + index * 250);
             });
         });
     }
