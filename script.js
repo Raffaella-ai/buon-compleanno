@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             desireText.innerHTML = "Che ogni tuo desiderio possa trovare sempre la strada per avverarsi. <span style='color:#e8a0b0'>✨</span>";
             desireText.classList.remove("opacity-0");
-            desireText.classList.add("text-transparent", "bg-clip-text", "bg-gradient-to-r", "from-[#f5e9cf]", "to-[#c41e3a]", "font-title", "italic");
+            desireText.classList.add("text-[#f5e9cf]", "font-title", "italic", "text-glow-champagne");
             const scrollBtn = document.getElementById("scroll-to-letter");
             if (scrollBtn) {
                 scrollBtn.classList.remove("hidden");
@@ -518,7 +518,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function onAllStarsLit() {
         surpriseContent.classList.remove("surprise-enter");
         void surpriseContent.offsetWidth;
-        surpriseContent.innerHTML = `<span class="heart-beat font-title italic text-transparent bg-clip-text bg-gradient-to-r from-[#f5e9cf] to-[#c41e3a]" style="font-size:1.8rem">Ti amo immensamente 🤍</span>`;
+        surpriseContent.innerHTML = `<span class="heart-beat font-title italic text-[#c41e3a] drop-shadow-[0_0_10px_rgba(196,30,58,0.5)]" style="font-size:1.8rem">Ti amo immensamente 🤍</span>`;
         surpriseContent.classList.add("surprise-enter");
         playEffect("confetti", window.innerWidth / 2, window.innerHeight / 2);
         setTimeout(() => playEffect("balloons", window.innerWidth / 2, fxCanvas.height), 350);
