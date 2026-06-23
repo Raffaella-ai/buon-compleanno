@@ -1,73 +1,71 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buon Compleanno Amore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-svh overflow-x-hidden font-sans antialiased select-none relative">
+<body class="bg-[#0a0e1a] text-[#fdf6ec] min-h-svh overflow-x-hidden font-body antialiased select-none relative">
 
     <div class="fixed inset-0 z-0">
         <div class="absolute inset-0 bg-[url('assets/images/bg-cielo.jpg')] bg-cover bg-center bg-no-repeat"></div>
-        <div class="absolute inset-0 bg-slate-950/50 backdrop-blur-[1px]"></div>
+        <div class="absolute inset-0 bg-[#0a0e1a]/65 backdrop-blur-[1px]"></div>
     </div>
     <canvas id="fireworks-canvas" class="fixed inset-0 z-10 pointer-events-none w-full h-full"></canvas>
+    <canvas id="effects-canvas" class="fixed inset-0 z-30 pointer-events-none w-full h-full"></canvas>
 
     <main class="relative z-20 w-full">
 
         <!-- SEZIONE 1: Countdown, Torta, Candeline, Fuochi -->
         <section id="hero-birthday-section" class="flex flex-col items-center justify-center min-h-svh w-full px-6 text-center">
             <div id="countdown-layer" class="flex items-center justify-center transition-all duration-500">
-                <span id="countdown-number" class="text-7xl md:text-9xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-amber-500 drop-shadow-glow">
+                <span id="countdown-number" class="text-7xl md:text-9xl font-title font-semibold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-[#f5e9cf] to-[#c41e3a] drop-shadow-glow">
                     3
                 </span>
             </div>
 
             <div id="greeting-layer" class="hidden flex-col items-center justify-center space-y-8 max-w-2xl animate-fade-in">
-                <h1 class="text-4xl md:text-6xl font-serif italic tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-amber-200 to-pink-300 drop-shadow-glow py-2">
+                <h1 class="text-5xl md:text-7xl font-title italic tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#f5e9cf] via-[#e8d5a8] to-[#c41e3a] text-glow-champagne py-2">
                     Buon Compleanno
                 </h1>
 
                 <div id="cake-container" class="relative w-48 h-48 md:w-64 flex items-center justify-center group animate-float mt-12 transition-all duration-1000 rounded-full">
-
                     <div class="absolute -top-4 flex space-x-6 z-30">
-                        <div class="candle relative w-2 h-12 bg-gradient-to-t from-sky-700 to-yellow-300 rounded-sm">
-                            <div class="flame animate-flame-flicker"></div>
+                        <div class="candle relative w-2 h-12 bg-gradient-to-t from-[#8b0a1e] to-[#e8d5a8] rounded-sm">
+                            <div class="flame"></div>
                             <div class="smoke-puff"></div>
                         </div>
-                        <div class="candle relative w-2 h-14 bg-gradient-to-t from-yellow-300 to-sky-600 rounded-sm -top-2">
-                            <div class="flame animate-flame-flicker" style="animation-delay: 0.2s;"></div>
+                        <div class="candle relative w-2 h-14 bg-gradient-to-t from-[#e8d5a8] to-[#8b0a1e] rounded-sm -top-2">
+                            <div class="flame" style="animation-delay: 0.2s;"></div>
                             <div class="smoke-puff"></div>
                         </div>
-                        <div class="candle relative w-2 h-12 bg-gradient-to-t from-sky-600 to-yellow-300 rounded-sm">
-                            <div class="flame animate-flame-flicker" style="animation-delay: 0.4s;"></div>
+                        <div class="candle relative w-2 h-12 bg-gradient-to-t from-[#8b0a1e] to-[#e8d5a8] rounded-sm">
+                            <div class="flame" style="animation-delay: 0.4s;"></div>
                             <div class="smoke-puff"></div>
                         </div>
                     </div>
 
                     <div class="w-full h-full flex items-center justify-center">
                         <img id="cake-img" src="assets/images/cake.png" alt="Torta di Compleanno" class="w-full h-full object-contain hidden">
-                        <div id="cake-placeholder" class="w-40 h-40 md:w-52 md:h-52 rounded-full border border-dashed border-amber-200/30 flex flex-col items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-                            <span class="text-amber-200/60 text-sm italic">✨ Una dolce sorpresa ✨</span>
+                        <div id="cake-placeholder" class="w-40 h-40 md:w-52 md:h-52 rounded-full border border-dashed border-[#e8d5a8]/30 flex flex-col items-center justify-center p-4 bg-[#131a2e]/40 backdrop-blur-sm">
+                            <span class="text-[#e8d5a8]/60 text-sm italic font-title">✨ Una dolce sorpresa ✨</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="space-y-4 min-h-[80px] flex flex-col items-center justify-center">
-                    <p id="desire-text" class="text-lg md:text-xl font-light tracking-widest text-pink-100/80 transition-all duration-1000 ease-in-out">
-                        Esprimi un desiderio <span class="text-amber-300">✨</span>
+                    <p id="desire-text" class="text-lg md:text-xl font-light tracking-widest text-[#fdf6ec]/80 transition-all duration-1000 ease-in-out">
+                        Esprimi un desiderio <span class="text-[#e8d5a8]">✨</span>
                     </p>
-                    <p id="romantic-text" class="text-base md:text-lg font-serif italic tracking-wide text-amber-200/0 max-w-md h-0 overflow-hidden transition-all duration-1000 ease-in-out transform translate-y-4"></p>
                 </div>
 
                 <div class="relative flex flex-col items-center justify-center min-h-[60px] mt-8 w-full">
-                    <button id="blow-button" class="relative px-8 py-3 rounded-full bg-gradient-to-r from-pink-500/20 to-amber-500/20 border border-pink-300/30 text-pink-100 tracking-widest text-sm uppercase transition-all duration-500 hover:from-pink-500/30 hover:to-amber-500/30 hover:border-pink-300/60 hover:scale-105 active:scale-95 focus:outline-none backdrop-blur-md shadow-lg cursor-pointer select-none z-30">
-                        Soffia sulle candeline
-                    </button>
-
-                    <button id="scroll-to-stars" class="hidden opacity-0 translate-y-4 absolute flex items-center justify-center w-12 h-12 rounded-full border border-yellow-300/20 text-yellow-200/60 transition-all duration-1000 ease-in-out cursor-pointer hover:text-yellow-100 hover:border-yellow-300/50 hover:bg-pink-500/10 focus:outline-none animate-bounce z-20">
+                    <button id="blow-button" class="btn-romantic z-30">Soffia sulle candeline</button>
+                    <button id="scroll-to-letter" class="btn-arrow hidden opacity-0 translate-y-4 absolute transition-all duration-1000 ease-in-out animate-bounce z-20" aria-label="Vai alla lettera">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
                         </svg>
@@ -76,49 +74,39 @@
             </div>
         </section>
 
-        <!-- SEZIONE 2: Il Cielo delle 30 Stelle -->
-        <section id="stars-section" class="flex flex-col items-center justify-center min-h-svh w-full px-4 py-16">
-
-            <p class="text-amber-200/70 text-xs tracking-[0.25em] uppercase font-serif italic mb-2">30 piccole stelle per i tuoi 30 anni</p>
-            <p class="text-pink-100/60 text-sm mb-6">Accendile tutte ✨</p>
-
-            <div class="mb-8 text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-pink-300">
-                <span id="stars-count">00</span><span class="text-amber-200/40">/30</span>
-            </div>
-
-            <div id="surprise-box" class="h-24 flex items-center justify-center mb-8 px-4 text-center transition-all duration-500">
-                <span id="surprise-content" class="text-lg font-serif italic text-pink-50/90"></span>
-            </div>
-
-            <div id="stars-grid" class="grid grid-cols-6 gap-3 max-w-xs mx-auto"></div>
-
-            <button id="scroll-to-letter" class="hidden opacity-0 translate-y-4 mt-12 flex items-center justify-center w-12 h-12 rounded-full border border-pink-300/30 text-pink-200/70 transition-all duration-1000 cursor-pointer active:scale-90 animate-bounce">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
-                </svg>
-            </button>
-        </section>
-
-        <!-- SEZIONE 3: La Lettera -->
+        <!-- SEZIONE 2: La Lettera (busta che si apre) -->
         <section id="letter-section" class="flex flex-col items-center justify-center min-h-svh w-full px-4 py-16">
-            <div class="max-w-2xl w-full">
-                <div id="letter-card" class="relative bg-slate-900/40 backdrop-blur-md border border-amber-200/10 rounded-2xl p-6 sm:p-10 shadow-2xl opacity-0 translate-y-6 transition-all duration-1000 ease-out">
+            <div class="max-w-2xl w-full envelope-wrap">
 
+                <!-- Stato 1: busta chiusa da toccare -->
+                <div id="envelope-closed" class="flex flex-col items-center justify-center text-center transition-all duration-700">
+                    <p class="text-[#e8d5a8]/70 text-xs tracking-[0.25em] uppercase font-title italic mb-6">Una lettera per te</p>
+                    <button id="open-letter-btn" class="group relative" aria-label="Apri la lettera">
+                        <div class="w-44 h-32 sm:w-56 sm:h-40 rounded-lg bg-gradient-to-br from-[#131a2e] to-[#0a0e1a] border border-[#e8d5a8]/40 shadow-2xl flex items-center justify-center relative overflow-hidden transition-transform duration-500 group-hover:scale-105 group-active:scale-95">
+                            <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 50% 0%, rgba(196,30,58,0.4), transparent 70%);"></div>
+                            <span class="text-4xl sm:text-5xl text-[#c41e3a]">♥</span>
+                            <div class="absolute top-0 left-0 w-0 h-0 border-l-[88px] border-l-transparent border-r-[88px] border-r-transparent border-t-[64px] border-t-[#e8d5a8]/15 sm:border-l-[112px] sm:border-r-[112px] sm:border-t-[80px]"></div>
+                        </div>
+                    </button>
+                    <p class="text-[#fdf6ec]/50 text-sm mt-5 font-body">Tocca per aprire</p>
+                </div>
+
+                <!-- Stato 2: lettera aperta -->
+                <div id="letter-card" class="letter-reveal relative bg-[#131a2e]/50 backdrop-blur-md border border-[#e8d5a8]/15 rounded-2xl p-6 sm:p-10 shadow-2xl">
                     <div class="flex items-center justify-center mb-6 space-x-3">
-                        <span class="h-px w-8 bg-gradient-to-r from-transparent to-amber-200/40"></span>
-                        <span class="text-amber-200/70 text-xs tracking-[0.25em] uppercase font-serif italic">A te</span>
-                        <span class="h-px w-8 bg-gradient-to-l from-transparent to-amber-200/40"></span>
+                        <span class="h-px w-8 bg-gradient-to-r from-transparent to-[#e8d5a8]/50"></span>
+                        <span class="text-[#e8d5a8]/70 text-xs tracking-[0.25em] uppercase font-title italic">A te</span>
+                        <span class="h-px w-8 bg-gradient-to-l from-transparent to-[#e8d5a8]/50"></span>
                     </div>
 
-                    <p id="letter-text" class="text-base sm:text-lg font-serif leading-relaxed text-pink-50/90 min-h-[260px] whitespace-pre-line"></p>
-                    <span id="letter-cursor" class="inline-block w-[2px] h-5 bg-amber-200 ml-1 align-middle animate-pulse"></span>
+                    <div id="letter-body" class="space-y-4 text-lg sm:text-xl font-title leading-relaxed text-[#fdf6ec]/90"></div>
 
-                    <p id="letter-signature" class="mt-6 text-right text-xl sm:text-2xl font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-pink-200 to-amber-200 opacity-0 transition-opacity duration-1000">
+                    <p id="letter-signature" class="letter-line mt-6 text-right text-2xl sm:text-3xl font-title italic text-transparent bg-clip-text bg-gradient-to-r from-[#f5e9cf] to-[#c41e3a]">
                         — con tutto il mio amore
                     </p>
 
                     <div class="flex justify-center mt-8">
-                        <button id="scroll-to-love-from-letter" class="hidden opacity-0 translate-y-4 flex items-center justify-center w-12 h-12 rounded-full border border-pink-300/30 text-pink-200/70 transition-all duration-1000 cursor-pointer active:scale-90 animate-bounce">
+                        <button id="scroll-to-stars-from-letter" class="btn-arrow hidden opacity-0 translate-y-4 transition-all duration-1000 animate-bounce" aria-label="Vai alle stelle">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
                             </svg>
@@ -128,10 +116,31 @@
             </div>
         </section>
 
-        <!-- SEZIONE 4: Ti Amo + Rosa che sboccia -->
-        <section id="love-section" class="flex flex-col items-center justify-center min-h-svh w-full px-4 py-16 overflow-hidden">
+        <!-- SEZIONE 3: Le 30 Stelle -->
+        <section id="stars-section" class="flex flex-col items-center justify-center min-h-svh w-full px-4 py-16">
+            <p class="text-[#e8d5a8]/70 text-xs tracking-[0.25em] uppercase font-title italic mb-2">30 piccole stelle per i tuoi 30 anni</p>
+            <p class="text-[#fdf6ec]/60 text-sm mb-6 font-body">Accendile tutte ✨</p>
 
-            <h2 id="love-title" class="text-5xl sm:text-7xl font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-amber-200 to-pink-300 drop-shadow-glow opacity-0 translate-y-6 transition-all duration-1000 ease-out mb-12">
+            <div class="mb-6 text-2xl font-semibold font-title text-transparent bg-clip-text bg-gradient-to-r from-[#e8d5a8] to-[#c41e3a]">
+                <span id="stars-count">00</span><span class="text-[#e8d5a8]/40">/30</span>
+            </div>
+
+            <div id="surprise-box" class="min-h-[150px] flex items-center justify-center mb-8 px-4 text-center transition-all duration-500">
+                <div id="surprise-content"></div>
+            </div>
+
+            <div id="stars-grid" class="stars-grid"></div>
+
+            <button id="scroll-to-love" class="btn-arrow hidden opacity-0 translate-y-4 mt-12 transition-all duration-1000 animate-bounce" aria-label="Vai al messaggio finale">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                </svg>
+            </button>
+        </section>
+
+        <!-- SEZIONE 4: Ti Amo + Rosa -->
+        <section id="love-section" class="flex flex-col items-center justify-center min-h-svh w-full px-4 py-16 overflow-hidden">
+            <h2 id="love-title" class="text-6xl sm:text-8xl font-title italic text-transparent bg-clip-text bg-gradient-to-r from-[#f5e9cf] via-[#e8d5a8] to-[#c41e3a] text-glow-champagne opacity-0 translate-y-6 transition-all duration-1000 ease-out mb-12">
                 Ti amo
             </h2>
 
@@ -141,24 +150,24 @@
                     <path class="rose-leaf" d="M100 210 C70 200 55 215 60 235 C85 232 100 225 100 210 Z" fill="#5a8a5a"/>
                     <path class="rose-leaf" d="M100 185 C130 175 145 190 140 210 C115 207 100 200 100 185 Z" fill="#4d7c4d"/>
                     <g class="rose-bloom">
-                        <path class="petal petal-outer" d="M100 140 C70 120 65 90 90 75 C105 90 108 115 100 140 Z" fill="#be185d"/>
-                        <path class="petal petal-outer" d="M100 140 C130 120 135 90 110 75 C95 90 92 115 100 140 Z" fill="#be185d"/>
-                        <path class="petal petal-outer" d="M100 140 C75 145 55 130 60 105 C82 105 98 118 100 140 Z" fill="#9f1239"/>
-                        <path class="petal petal-outer" d="M100 140 C125 145 145 130 140 105 C118 105 102 118 100 140 Z" fill="#9f1239"/>
+                        <path class="petal petal-outer" d="M100 140 C70 120 65 90 90 75 C105 90 108 115 100 140 Z" fill="#7a0a1a"/>
+                        <path class="petal petal-outer" d="M100 140 C130 120 135 90 110 75 C95 90 92 115 100 140 Z" fill="#7a0a1a"/>
+                        <path class="petal petal-outer" d="M100 140 C75 145 55 130 60 105 C82 105 98 118 100 140 Z" fill="#8b0a1e"/>
+                        <path class="petal petal-outer" d="M100 140 C125 145 145 130 140 105 C118 105 102 118 100 140 Z" fill="#8b0a1e"/>
                     </g>
                     <g class="rose-bloom">
-                        <path class="petal petal-mid" d="M100 130 C82 112 82 92 100 85 C118 92 118 112 100 130 Z" fill="#e11d48"/>
-                        <path class="petal petal-mid" d="M100 128 C80 122 72 105 85 92 C100 100 105 115 100 128 Z" fill="#f43f5e"/>
-                        <path class="petal petal-mid" d="M100 128 C120 122 128 105 115 92 C100 100 95 115 100 128 Z" fill="#f43f5e"/>
+                        <path class="petal petal-mid" d="M100 130 C82 112 82 92 100 85 C118 92 118 112 100 130 Z" fill="#a8152b"/>
+                        <path class="petal petal-mid" d="M100 128 C80 122 72 105 85 92 C100 100 105 115 100 128 Z" fill="#c41e3a"/>
+                        <path class="petal petal-mid" d="M100 128 C120 122 128 105 115 92 C100 100 95 115 100 128 Z" fill="#c41e3a"/>
                     </g>
                     <g class="rose-bloom">
-                        <path class="petal petal-core" d="M100 118 C90 108 92 96 100 94 C108 96 110 108 100 118 Z" fill="#fb7185"/>
-                        <circle class="petal petal-core" cx="100" cy="106" r="7" fill="#fda4af"/>
+                        <path class="petal petal-core" d="M100 118 C90 108 92 96 100 94 C108 96 110 108 100 118 Z" fill="#d63450"/>
+                        <circle class="petal petal-core" cx="100" cy="106" r="7" fill="#e8a0b0"/>
                     </g>
                 </svg>
             </div>
 
-            <p id="love-sub" class="mt-8 text-pink-100/60 text-sm font-serif italic tracking-wide opacity-0 transition-opacity duration-1000">
+            <p id="love-sub" class="mt-8 text-[#fdf6ec]/60 text-sm font-title italic tracking-wide opacity-0 transition-opacity duration-1000">
                 oggi, domani, sempre
             </p>
         </section>
