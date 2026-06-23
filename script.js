@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
             cakeImg.classList.remove("hidden");
             if (cakePlaceholder) cakePlaceholder.classList.add("hidden");
         };
-        cakeImg.onerror = function() { /* resta il placeholder */ };
+        cakeImg.onerror = function() { /* resta il placeholder visibile */ };
         cakeImg.src = cakeImg.getAttribute("src");
     }
 
-    // ===== COUNTDOWN =====
+    // ===== COUNTDOWN INIZIALE =====
     let currentCount = 3;
     const countdownInterval = setInterval(() => {
         currentCount--;
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 500);
     }
 
-    // ===== FUOCHI D'ARTIFICIO (hero) =====
+    // ===== FUOCHI D'ARTIFICIO DI BACKGROUND (Sfondo Etereo) =====
     let particles = [];
     let fireworksActive = true;
 
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.1 }).observe(heroSection);
     }
 
-    // ===== EFFETTI STELLE (canvas dedicato): 5 tipi =====
+    // ===== SISTEMA DI EFFETTI PARTICOLARI SUL CANVAS SUPREMO =====
     let fxItems = [];
     let fxRunning = false;
 
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tick();
     }
 
-    // --- Palloncini ---
+    // 1. Palloncini Eleganti
     class Balloon {
         constructor(x) {
             this.x = x; this.y = fxCanvas.height + 40;
@@ -173,55 +173,51 @@ document.addEventListener("DOMContentLoaded", () => {
             fxCtx.beginPath();
             fxCtx.moveTo(this.x, this.y + this.r);
             fxCtx.lineTo(this.x + Math.sin(this.sway) * 4, this.y + this.r + 16);
-            fxCtx.strokeStyle = "rgba(255,255,255,0.35)";
+            fxCtx.strokeStyle = "rgba(255,255,255,0.3)";
             fxCtx.lineWidth = 1; fxCtx.stroke();
             fxCtx.restore();
         }
     }
 
-    // --- Coriandoli ---
+    // 2. Coriandoli Esplosivi
     class Confetto {
         constructor(x, y) {
             this.x = x; this.y = y;
             const a = Math.random() * Math.PI * 2;
             const s = Math.random() * 6 + 3;
             this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s - 4;
-            this.gravity = 0.15;
-            this.size = Math.random() * 6 + 4;
-            this.rot = Math.random() * Math.PI;
-            this.rotSpeed = (Math.random() - 0.5) * 0.3;
+            this.gravity = 0.15; this.size = Math.random() * 6 + 4;
+            this.rot = Math.random() * Math.PI; this.rotSpeed = (Math.random() - 0.5) * 0.3;
             const pal = ["#c41e3a", "#e8d5a8", "#e8a0b0", "#f5e9cf", "#ffffff"];
             this.color = pal[Math.floor(Math.random() * pal.length)];
             this.alpha = 1; this.dead = false;
         }
         update() {
             this.vy += this.gravity; this.x += this.vx; this.y += this.vy;
-            this.rot += this.rotSpeed; this.alpha -= 0.008;
+            this.rot += this.rotSpeed; this.alpha -= 0.01;
         }
         draw() {
             fxCtx.save();
             fxCtx.globalAlpha = Math.max(0, this.alpha);
             fxCtx.translate(this.x, this.y); fxCtx.rotate(this.rot);
             fxCtx.fillStyle = this.color;
-            fxCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.5);
+            fxCtx.fillRect(-this.size/2, -this.size/2, this.size, this.size * 0.5);
             fxCtx.restore();
         }
     }
 
-    // --- Cuoricini che salgono ---
+    // 3. Cuoricini Romantici
     class Heart {
-        constructor(x) {
-            this.x = x; this.y = fxCanvas.height * 0.6 + Math.random() * 80;
-            this.vy = -(Math.random() * 1.2 + 1.2);
-            this.sway = Math.random() * Math.PI * 2;
-            this.swaySpeed = Math.random() * 0.04 + 0.02;
+        constructor(x, y) {
+            this.x = x; this.y = y;
+            const a = Math.random() * Math.PI * 2;
+            const s = Math.random() * 2 + 1;
+            this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s - 1.5;
             this.size = Math.random() * 10 + 12;
             this.alpha = 1; this.dead = false;
         }
         update() {
-            this.y += this.vy; this.sway += this.swaySpeed;
-            this.x += Math.sin(this.sway) * 0.6;
-            this.alpha -= 0.006;
+            this.x += this.vx; this.y += this.vy; this.alpha -= 0.012;
         }
         draw() {
             fxCtx.save();
@@ -235,84 +231,77 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- Stelline luminose ---
+    // 4. Stelline Brillanti
     class Sparkle {
         constructor(x, y) {
-            this.x = x + (Math.random() - 0.5) * 120;
-            this.y = y + (Math.random() - 0.5) * 120;
+            this.x = x + (Math.random() - 0.5) * 80;
+            this.y = y + (Math.random() - 0.5) * 80;
             this.size = Math.random() * 3 + 1;
             this.alpha = 1; this.dead = false;
             this.fade = Math.random() * 0.02 + 0.01;
             this.twinkle = Math.random() * Math.PI * 2;
         }
-        update() {
-            this.alpha -= this.fade; this.twinkle += 0.2;
-        }
+        update() { this.alpha -= this.fade; this.twinkle += 0.2; }
         draw() {
             fxCtx.save();
             fxCtx.globalAlpha = Math.max(0, this.alpha) * (0.5 + 0.5 * Math.sin(this.twinkle));
-            fxCtx.beginPath();
-            fxCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            fxCtx.beginPath(); fxCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             fxCtx.fillStyle = "#f5e9cf";
             fxCtx.shadowBlur = 10; fxCtx.shadowColor = "#e8d5a8";
-            fxCtx.fill();
-            fxCtx.restore();
+            fxCtx.fill(); fxCtx.restore();
         }
     }
 
-    // --- Mini fuoco d'artificio soft ---
+    // 5. Mini Fuochi Delicati
     class SoftSpark {
         constructor(x, y, color) {
             this.x = x; this.y = y;
             const a = Math.random() * Math.PI * 2;
-            const s = Math.random() * 2.5 + 0.8;
+            const s = Math.random() * 2.2 + 0.8;
             this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s;
-            this.gravity = 0.02; this.alpha = 1;
-            this.fade = Math.random() * 0.012 + 0.008;
-            this.color = color; this.size = Math.random() * 1.5 + 1; this.dead = false;
+            this.gravity = 0.03; this.alpha = 1;
+            this.fade = Math.random() * 0.015 + 0.008;
+            this.color = color; this.size = Math.random() * 1.5 + 1;
         }
         update() {
             this.vx *= 0.97; this.vy *= 0.97; this.vy += this.gravity;
             this.x += this.vx; this.y += this.vy; this.alpha -= this.fade;
         }
         draw() {
-            fxCtx.save();
-            fxCtx.globalAlpha = Math.max(0, this.alpha);
-            fxCtx.beginPath();
-            fxCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            fxCtx.shadowBlur = 6; fxCtx.shadowColor = this.color;
-            fxCtx.fillStyle = this.color; fxCtx.fill();
-            fxCtx.restore();
+            fxCtx.save(); fxCtx.globalAlpha = Math.max(0, this.alpha);
+            fxCtx.beginPath(); fxCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            fxCtx.shadowBlur = 5; fxCtx.shadowColor = this.color;
+            fxCtx.fillStyle = this.color; fxCtx.fill(); fxCtx.restore();
         }
     }
 
-    // Dispatcher degli effetti per nome
+    // Motore Switch per gli effetti
     function playEffect(effect, originX, originY) {
         if (prefersReducedMotion) return;
         switch (effect) {
             case "balloons":
-                for (let i = 0; i < 12; i++) fxItems.push(new Balloon(originX + (Math.random() - 0.5) * 180));
+                for (let i = 0; i < 12; i++) fxItems.push(new Balloon(originX + (Math.random() - 0.5) * 140));
                 break;
             case "confetti":
-                for (let i = 0; i < 70; i++) fxItems.push(new Confetto(originX, originY));
+                for (let i = 0; i < 60; i++) fxItems.push(new Confetto(originX, originY));
                 break;
             case "hearts":
-                for (let i = 0; i < 12; i++) fxItems.push(new Heart(originX + (Math.random() - 0.5) * 120));
+                for (let i = 0; i < 15; i++) fxItems.push(new Heart(originX, originY));
                 break;
             case "sparkles":
-                for (let i = 0; i < 30; i++) fxItems.push(new Sparkle(originX, originY));
+                for (let i = 0; i < 25; i++) fxItems.push(new Sparkle(originX, originY));
                 break;
             case "firework-soft": {
-                const pal = ["#c41e3a", "#e8d5a8", "#e8a0b0", "#f5e9cf"];
+                const pal = ["#c41e3a", "#e8d5a8", "#e8a0b0", "#ffffff"];
                 const col = pal[Math.floor(Math.random() * pal.length)];
-                for (let i = 0; i < 50; i++) fxItems.push(new SoftSpark(originX, originY, col));
+                for (let i = 0; i < 40; i++) fxItems.push(new SoftSpark(originX, originY, col));
                 break;
             }
         }
         ensureFxRunning();
     }
 
-    // ===== SOFFIO CANDELINE =====
+    // ===== GESTIONE COMPLETA SOFFIO CANDELINE =====
     const blowButton = document.getElementById("blow-button");
     const flames = document.querySelectorAll(".flame");
     const smokes = document.querySelectorAll(".smoke-puff");
@@ -350,9 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const scrollBtn = document.getElementById("scroll-to-letter");
             if (scrollBtn) {
                 scrollBtn.classList.remove("hidden");
-                setTimeout(() => {
-                    scrollBtn.classList.remove("opacity-0", "translate-y-4");
-                }, 400);
+                setTimeout(() => { scrollBtn.classList.remove("opacity-0", "translate-y-4"); }, 400);
             }
         }, 1000);
     }
@@ -365,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== SEZIONE 2: LETTERA (busta che si apre, paragrafi progressivi) =====
+    // ===== SEZIONE 2: LETTERA COMPLETA RIGHE PROGRESSIVE =====
     const openLetterBtn = document.getElementById("open-letter-btn");
     const envelopeClosed = document.getElementById("envelope-closed");
     const letterCard = document.getElementById("letter-card");
@@ -373,12 +360,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const letterSignature = document.getElementById("letter-signature");
     const scrollToStarsFromLetter = document.getElementById("scroll-to-stars-from-letter");
 
-    // ---- PERSONALIZZA QUI il testo della lettera (un elemento = un paragrafo) ----
+    // MODIFICA QUI IL TESTO DELLA TUA LETTERA
     const paragrafiLettera = [
         "Trent'anni.",
-        "Mi fermo un attimo a pensare a quanto sia bello aver attraversato una parte di questi anni accanto a te.",
-        "Non ho regali grandi abbastanza, così ho scelto le parole.",
-        "Buon compleanno, amore mio."
+        "Mi fermo un secondo a pensare a quanto sia straordinariamente bello aver condiviso un capitolo così importante della mia vita insieme a te.",
+        "Nessun regalo materiale potrebbe eguagliare quello che provo, per questo ho preferito affidarmi ai ricordi e alle mie parole più sincere.",
+        "Buon compleanno, amore della mia vita."
     ];
 
     function buildLetterParagraphs() {
@@ -394,17 +381,16 @@ document.addEventListener("DOMContentLoaded", () => {
     function revealParagraphsProgressively() {
         const lines = letterBody.querySelectorAll(".letter-line");
         lines.forEach((line, i) => {
-            setTimeout(() => line.classList.add("show"), 400 + i * 700);
+            setTimeout(() => line.classList.add("show"), 400 + i * 750);
         });
-        // Firma e freccia dopo l'ultimo paragrafo
-        const totale = 400 + lines.length * 700;
-        setTimeout(() => { if (letterSignature) letterSignature.classList.add("show"); }, totale);
+        const totalDuration = 400 + lines.length * 750;
+        setTimeout(() => { if (letterSignature) letterSignature.classList.add("show"); }, totalDuration);
         setTimeout(() => {
             if (scrollToStarsFromLetter) {
                 scrollToStarsFromLetter.classList.remove("hidden");
                 setTimeout(() => scrollToStarsFromLetter.classList.remove("opacity-0", "translate-y-4"), 200);
             }
-        }, totale + 600);
+        }, totalDuration + 600);
     }
 
     let letterOpened = false;
@@ -422,9 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (prefersReducedMotion) {
                 letterBody.querySelectorAll(".letter-line").forEach(l => l.classList.add("show"));
                 if (letterSignature) letterSignature.classList.add("show");
-                if (scrollToStarsFromLetter) {
-                    scrollToStarsFromLetter.classList.remove("hidden", "opacity-0", "translate-y-4");
-                }
+                if (scrollToStarsFromLetter) scrollToStarsFromLetter.classList.remove("hidden", "opacity-0", "translate-y-4");
             } else {
                 revealParagraphsProgressively();
             }
@@ -440,50 +424,38 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== SEZIONE 3: 30 STELLE INTERATTIVE =====
+    // ===== SEZIONE 3: GRIGLIA DATI 30 STELLE CON IMMAGINE OPZIONALE =====
     const starsGrid = document.getElementById("stars-grid");
     const starsCount = document.getElementById("stars-count");
     const surpriseContent = document.getElementById("surprise-content");
     const scrollToLove = document.getElementById("scroll-to-love");
 
-    // ---- PERSONALIZZA QUI: struttura dati delle 30 stelle ----
-    // Ogni oggetto: { title, text, image, effect }
-    // - title:  titolo breve (opzionale)
-    // - text:   frase (opzionale)
-    // - image:  percorso foto, es. "assets/images/foto-1.jpg" (opzionale, "" se nessuna)
-    // - effect: "balloons" | "confetti" | "hearts" | "sparkles" | "firework-soft" | "" (nessuno)
-    // Se metti meno di 30 oggetti, le restanti stelle ricevono un effetto casuale.
+    // PERSONALIZZA QUI LE TUE 30 STELLE (Puoi inserirne fino a 30)
+    // Se ne lasci meno, il sistema popolerà automaticamente le restanti con effetti casuali eleganti!
     const stelle = [
-        { title: "Il tuo sorriso", text: "La prima cosa che mi ha conquistata.", image: "", effect: "hearts" },
-        { title: "Noi due", text: "Quella volta che ridevamo senza un motivo.", image: "assets/images/foto-1.jpg", effect: "confetti" },
-        { title: "Sei casa", text: "Ovunque, se ci sei tu.", image: "", effect: "sparkles" },
-        { title: "30", text: "Tanti auguri, amore.", image: "", effect: "balloons" },
-        { title: "Insieme", text: "Il mio posto preferito.", image: "assets/images/foto-2.jpg", effect: "firework-soft" },
-        { title: "", text: "Il modo in cui mi guardi.", image: "", effect: "hearts" }
-        // ...aggiungi qui altre voci quando vuoi
+        { title: "Il tuo sorriso", text: "La prima cosa che mi ha totalmente conquistato.", image: "", effect: "hearts" },
+        { title: "Noi a Parigi", text: "Quella sera magica in cui ridevamo senza sosta.", image: "assets/images/foto-1.jpg", effect: "confetti" },
+        { title: "Sei Casa", text: "Ovunque mi trovi nel mondo, se ci sei tu sono al sicuro.", image: "", effect: "sparkles" },
+        { title: "I tuoi 30 anni", text: "Un traguardo splendido per un uomo speciale.", image: "", effect: "balloons" },
+        { title: "Il nostro viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/foto-2.jpg", effect: "firework-soft" },
+        { title: "Sguardo", text: "Il modo in cui continui a guardarmi come il primo giorno.", image: "", effect: "hearts" }
     ];
 
     const TOTAL_STARS = 30;
     let litStars = 0;
 
-    // Costruisce un mazzo di 30 elementi a partire da "stelle", riempiendo i vuoti
     function buildDeck() {
-        const effettiPossibili = ["balloons", "confetti", "hearts", "sparkles", "firework-soft"];
+        const possibiliEffetti = ["balloons", "confetti", "hearts", "sparkles", "firework-soft"];
         const deck = stelle.slice(0, TOTAL_STARS).map(s => ({
-            title: s.title || "",
-            text: s.text || "",
-            image: s.image || "",
-            effect: s.effect || ""
+            title: s.title || "", text: s.text || "", image: s.image || "", effect: s.effect || ""
         }));
         while (deck.length < TOTAL_STARS) {
             deck.push({
-                title: "",
-                text: "",
-                image: "",
-                effect: effettiPossibili[Math.floor(Math.random() * effettiPossibili.length)]
+                title: "", text: "", image: "",
+                effect: possibiliEffetti[Math.floor(Math.random() * possibiliEffetti.length)]
             });
         }
-        // Mescola
+        // Mescolamento controllato per renderlo dinamico
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -493,19 +465,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const deck = buildDeck();
 
-    // Mostra il contenuto della stella nella scatola sorpresa (gestisce assenza di campi)
     function showSurprise(item) {
         surpriseContent.classList.remove("surprise-enter");
-        void surpriseContent.offsetWidth;
+        void surpriseContent.offsetWidth; // Reset animazione CSS
 
         let html = "";
         if (item.image) {
-            html += `<img src="${item.image}" alt="${item.title || "Ricordo"}" class="surprise-photo mb-3"
-                          onerror="this.style.display='none'">`;
+            html += `<img src="${item.image}" alt="${item.title || "Ricordo"}" class="surprise-photo" onerror="this.style.display='none'">`;
         }
         if (item.title) html += `<div class="surprise-title">${item.title}</div>`;
         if (item.text)  html += `<div class="surprise-text">${item.text}</div>`;
-        // Se la stella non ha né testo né titolo né foto, mostra un simbolo gentile
+        
+        // Fallback elegante se la stella è solo un effetto visivo
         if (!item.image && !item.title && !item.text) {
             html = `<span class="heart-beat" style="font-size:2.2rem">✨</span>`;
         }
@@ -514,7 +485,7 @@ document.addEventListener("DOMContentLoaded", () => {
         surpriseContent.classList.add("surprise-enter");
     }
 
-    function centerOf(el) {
+    function getCenterOf(el) {
         const r = el.getBoundingClientRect();
         return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
     }
@@ -526,17 +497,17 @@ document.addEventListener("DOMContentLoaded", () => {
             star.className = "sky-star";
             if (item.effect) star.classList.add("special");
             star.innerHTML = `<span class="star-glyph">★</span>`;
-            star.setAttribute("aria-label", "Accendi una stella");
+            star.setAttribute("aria-label", `Accendi la stella numero ${i+1}`);
 
             star.addEventListener("click", () => {
-                const c = centerOf(star);
+                const center = getCenterOf(star);
                 if (!star.classList.contains("lit")) {
                     star.classList.add("lit");
                     litStars++;
                     starsCount.textContent = String(litStars).padStart(2, "0");
                 }
                 showSurprise(item);
-                if (item.effect) playEffect(item.effect, c.x, c.y);
+                if (item.effect) playEffect(item.effect, center.x, center.y);
                 if (litStars === TOTAL_STARS) onAllStarsLit();
             });
 
@@ -547,10 +518,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function onAllStarsLit() {
         surpriseContent.classList.remove("surprise-enter");
         void surpriseContent.offsetWidth;
-        surpriseContent.innerHTML = `<span class="heart-beat font-title italic text-transparent bg-clip-text bg-gradient-to-r from-[#f5e9cf] to-[#c41e3a]" style="font-size:1.8rem">Ti amo 🤍</span>`;
+        surpriseContent.innerHTML = `<span class="heart-beat font-title italic text-transparent bg-clip-text bg-gradient-to-r from-[#f5e9cf] to-[#c41e3a]" style="font-size:1.8rem">Ti amo immensamente 🤍</span>`;
         surpriseContent.classList.add("surprise-enter");
         playEffect("confetti", window.innerWidth / 2, window.innerHeight / 2);
-        setTimeout(() => playEffect("balloons", window.innerWidth / 2, 0), 300);
+        setTimeout(() => playEffect("balloons", window.innerWidth / 2, fxCanvas.height), 350);
         if (scrollToLove) {
             scrollToLove.classList.remove("hidden");
             setTimeout(() => scrollToLove.classList.remove("opacity-0", "translate-y-4"), 400);
@@ -564,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== SEZIONE 4: TI AMO + ROSA =====
+    // ===== SEZIONE 4: INTERSECTION OBSERVER ROSA CHE SBOCCIA =====
     const loveTitle = document.getElementById("love-title");
     const loveSub = document.getElementById("love-sub");
     const roseSvg = document.getElementById("rose-svg");
@@ -583,5 +554,4 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }, { threshold: 0.35 }).observe(loveSec);
     }
-
 });
