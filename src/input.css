@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @layer base {
+  .font-title { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .font-sans { font-family: 'Inter', system-ui, sans-serif; }
+  body { font-family: 'Inter', system-ui, sans-serif; }
+
   .bg-gradient-radial {
     background-image: radial-gradient(circle at 85% 15%, var(--tw-gradient-stops));
   }
@@ -8,10 +12,10 @@
 
 @layer utilities {
   .shadow-luna {
-    box-shadow: 0 0 40px 10px rgba(254, 252, 232, 0.3), inset -10px -10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 40px 10px rgba(254, 226, 226, 0.25), inset -10px -10px 20px rgba(0,0,0,0.2);
   }
   .drop-shadow-glow {
-    filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.4));
+    filter: drop-shadow(0 0 15px rgba(220, 38, 38, 0.45));
   }
 }
 
@@ -48,14 +52,13 @@
   100% { transform: translateX(-50%) scale(1.05) rotate(3deg); opacity: 0.9; }
 }
 
-/* --- STEP 2: SPEGNIMENTO CANDELINE --- */
+/* --- SPEGNIMENTO CANDELINE --- */
 .flame.flame-extinct {
   animation: extinguish 0.4s forwards cubic-bezier(0.4, 0, 1, 1) !important;
   background: none !important;
   box-shadow: none !important;
   opacity: 0 !important;
 }
-
 .flame.animate-flame-blown {
   animation: violent-flicker 0.3s infinite alternate ease-in-out !important;
 }
@@ -73,65 +76,76 @@
   pointer-events: none;
   filter: blur(1px);
 }
-
 .smoke-puff.smoke-active { animation: smoke-rise 2s forwards ease-out !important; }
-
-.cake-glow-flash { animation: gentle-flash 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
 
 @keyframes violent-flicker {
   0% { transform: translateX(-50%) scale(0.9) skewX(-10deg) scaleY(0.6); opacity: 0.7; }
   100% { transform: translateX(-50%) scale(1.1) skewX(15deg) scaleY(0.4); opacity: 0.8; }
 }
-
 @keyframes extinguish {
   0% { transform: translateX(-50%) scale(0.8) skewX(10deg); opacity: 0.7; }
   100% { transform: translateX(-50%) scale(0); opacity: 0; }
 }
-
 @keyframes smoke-rise {
   0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.6; filter: blur(1px); }
   30% { transform: translateX(-30%) translateY(-12px) scale(2.5); opacity: 0.35; filter: blur(2px); }
   100% { transform: translateX(-50%) translateY(-42px) scale(4); opacity: 0; filter: blur(4px); }
 }
 
-@keyframes gentle-flash {
-  0% { box-shadow: 0 0 0 rgba(251, 207, 232, 0); }
-  30% { box-shadow: 0 0 50px 15px rgba(251, 207, 232, 0.25), inset 0 0 20px 5px rgba(253, 230, 138, 0.1); }
-  100% { box-shadow: 0 0 0 rgba(251, 207, 232, 0); }
-}
-
-/* --- SEZIONE 2: STELLE INTERATTIVE --- */
+/* --- STELLE INTERATTIVE (distanziate e dita-friendly) --- */
 .sky-star {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
+  min-height: 48px;          /* area di tocco comoda */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   line-height: 1;
-  color: rgba(148, 163, 184, 0.35);
+  color: rgba(225, 200, 180, 0.30);
   cursor: pointer;
   transition: transform 0.3s ease, color 0.5s ease;
   -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  padding: 0;
 }
-.sky-star:active { transform: scale(0.85); }
+.sky-star:active { transform: scale(0.82); }
 .sky-star.lit {
   color: #fbbf24;
-  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.7));
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
   animation: star-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Le stelle "speciali" (con effetto) hanno un sottile alone rosso */
+.sky-star.special.lit {
+  color: #f87171;
+  filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.9));
 }
 
 @keyframes star-pop {
   0% { transform: scale(0.5); }
-  60% { transform: scale(1.35); }
+  60% { transform: scale(1.4); }
   100% { transform: scale(1); }
 }
 
+/* Sorpresa centrale */
 .surprise-enter { animation: surprise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes surprise-in {
   0% { opacity: 0; transform: scale(0.7) translateY(10px); filter: blur(4px); }
   100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+/* Foto dentro la sorpresa */
+.surprise-photo {
+  max-width: 180px;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 2px solid rgba(251, 191, 36, 0.4);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  object-fit: cover;
 }
 
 .heart-beat { animation: heart-beat 0.8s ease-in-out; display: inline-block; }
@@ -142,7 +156,7 @@
   75% { transform: scale(1.15); }
 }
 
-/* --- SEZIONE 4: ROSA CHE SBOCCIA --- */
+/* --- ROSA CHE SBOCCIA --- */
 #rose-stem {
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
@@ -175,7 +189,6 @@
   .flame.animate-flame-blown,
   .flame.flame-extinct,
   .smoke-puff.smoke-active,
-  .cake-glow-flash,
   .sky-star.lit,
   .surprise-enter,
   .heart-beat {
