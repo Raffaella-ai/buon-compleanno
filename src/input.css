@@ -1,16 +1,12 @@
 @import "tailwindcss";
 
-
-
 @layer base {
-  /* Sfondo Radiale personalizzato per dare profondità e l'alone lunare */
   .bg-gradient-radial {
     background-image: radial-gradient(circle at 85% 15%, var(--tw-gradient-stops));
   }
 }
 
 @layer utilities {
-  /* Bagliori e ombreggiature stile cinema */
   .shadow-luna {
     box-shadow: 0 0 40px 10px rgba(254, 252, 232, 0.3), inset -10px -10px 20px rgba(0,0,0,0.2);
   }
@@ -20,24 +16,17 @@
 }
 
 /* --- ANIMAZIONI CUSTOM --- */
-
-/* Fluttuazione della torta */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
+.animate-float { animation: float 4s ease-in-out infinite; }
 
-/* Apparizione morbida del testo */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); filter: blur(5px); }
   to { opacity: 1; transform: scale(1); filter: blur(0); }
 }
-.animate-fade-in {
-  animation: fadeIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+.animate-fade-in { animation: fadeIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
 /* --- LE FIAMME DELLE CANDELINE --- */
 .flame {
@@ -59,21 +48,7 @@
   100% { transform: translateX(-50%) scale(1.05) rotate(3deg); opacity: 0.9; }
 }
 
-/* --- SCINTILLIO DELLE STELLE --- */
-.star {
-  position: absolute;
-  background-color: white;
-  border-radius: 50%;
-  animation: twinkle linear infinite alternate;
-}
-
-@keyframes twinkle {
-  0% { opacity: 0.2; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1.2); }
-}
-
 /* --- STEP 2: SPEGNIMENTO CANDELINE --- */
-
 .flame.flame-extinct {
   animation: extinguish 0.4s forwards cubic-bezier(0.4, 0, 1, 1) !important;
   background: none !important;
@@ -99,83 +74,118 @@
   filter: blur(1px);
 }
 
-.smoke-puff.smoke-active {
-  animation: smoke-rise 2s forwards ease-out !important;
-}
+.smoke-puff.smoke-active { animation: smoke-rise 2s forwards ease-out !important; }
 
-.cake-glow-flash {
-  animation: gentle-flash 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
+.cake-glow-flash { animation: gentle-flash 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
 
 @keyframes violent-flicker {
-  0% {
-    transform: translateX(-50%) scale(0.9) skewX(-10deg) scaleY(0.6);
-    opacity: 0.7;
-  }
-
-  100% {
-    transform: translateX(-50%) scale(1.1) skewX(15deg) scaleY(0.4);
-    opacity: 0.8;
-  }
+  0% { transform: translateX(-50%) scale(0.9) skewX(-10deg) scaleY(0.6); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(1.1) skewX(15deg) scaleY(0.4); opacity: 0.8; }
 }
 
 @keyframes extinguish {
-  0% {
-    transform: translateX(-50%) scale(0.8) skewX(10deg);
-    opacity: 0.7;
-  }
-
-  100% {
-    transform: translateX(-50%) scale(0);
-    opacity: 0;
-  }
+  0% { transform: translateX(-50%) scale(0.8) skewX(10deg); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(0); opacity: 0; }
 }
 
 @keyframes smoke-rise {
-  0% {
-    transform: translateX(-50%) translateY(0) scale(1);
-    opacity: 0.6;
-    filter: blur(1px);
-  }
-
-  30% {
-    transform: translateX(-30%) translateY(-12px) scale(2.5);
-    opacity: 0.35;
-    filter: blur(2px);
-  }
-
-  100% {
-    transform: translateX(-50%) translateY(-42px) scale(4);
-    opacity: 0;
-    filter: blur(4px);
-  }
+  0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.6; filter: blur(1px); }
+  30% { transform: translateX(-30%) translateY(-12px) scale(2.5); opacity: 0.35; filter: blur(2px); }
+  100% { transform: translateX(-50%) translateY(-42px) scale(4); opacity: 0; filter: blur(4px); }
 }
 
 @keyframes gentle-flash {
-  0% {
-    box-shadow: 0 0 0 rgba(251, 207, 232, 0);
-  }
-
-  30% {
-    box-shadow:
-      0 0 50px 15px rgba(251, 207, 232, 0.25),
-      inset 0 0 20px 5px rgba(253, 230, 138, 0.1);
-  }
-
-  100% {
-    box-shadow: 0 0 0 rgba(251, 207, 232, 0);
-  }
+  0% { box-shadow: 0 0 0 rgba(251, 207, 232, 0); }
+  30% { box-shadow: 0 0 50px 15px rgba(251, 207, 232, 0.25), inset 0 0 20px 5px rgba(253, 230, 138, 0.1); }
+  100% { box-shadow: 0 0 0 rgba(251, 207, 232, 0); }
 }
 
+/* --- SEZIONE 2: STELLE INTERATTIVE --- */
+.sky-star {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgba(148, 163, 184, 0.35);
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.5s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sky-star:active { transform: scale(0.85); }
+.sky-star.lit {
+  color: #fbbf24;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.7));
+  animation: star-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes star-pop {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.surprise-enter { animation: surprise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes surprise-in {
+  0% { opacity: 0; transform: scale(0.7) translateY(10px); filter: blur(4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+.heart-beat { animation: heart-beat 0.8s ease-in-out; display: inline-block; }
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.15); }
+}
+
+/* --- SEZIONE 4: ROSA CHE SBOCCIA --- */
+#rose-stem {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 1.4s ease-out;
+}
+#rose-svg.bloomed #rose-stem { stroke-dashoffset: 0; }
+
+.rose-leaf {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: 100px 200px;
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 1s;
+}
+#rose-svg.bloomed .rose-leaf { opacity: 1; transform: scale(1); }
+
+.petal {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: 100px 120px;
+  transition: opacity 0.5s ease, transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#rose-svg.bloomed .petal { opacity: 1; transform: scale(1); }
+#rose-svg.bloomed .petal-outer { transition-delay: 1.4s; }
+#rose-svg.bloomed .petal-mid   { transition-delay: 1.9s; }
+#rose-svg.bloomed .petal-core  { transition-delay: 2.3s; }
+
+/* --- ACCESSIBILITÀ --- */
 @media (prefers-reduced-motion: reduce) {
   .flame.animate-flame-blown,
   .flame.flame-extinct,
   .smoke-puff.smoke-active,
-  .cake-glow-flash {
+  .cake-glow-flash,
+  .sky-star.lit,
+  .surprise-enter,
+  .heart-beat {
     animation: none !important;
   }
-
-  .flame.flame-extinct {
-    opacity: 0 !important;
+  .flame.flame-extinct { opacity: 0 !important; }
+  #rose-stem { stroke-dashoffset: 0 !important; transition: none !important; }
+  .rose-leaf, .petal {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    transition: none !important;
   }
 }
