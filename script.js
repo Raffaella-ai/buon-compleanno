@@ -202,9 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function triggerFinalRomanceEffects() {
-        if (cakeContainer) {
+        /*if (cakeContainer) {
             cakeContainer.classList.add("cake-glow-flash");
-        }
+        }*/
 
         if (desireText) {
             desireText.classList.add("opacity-0");
