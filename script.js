@@ -438,6 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Sei Casa", text: "Ovunque mi trovi nel mondo, se ci sei tu sono al sicuro.", image: "", effect: "sparkles" },
         { title: "I tuoi 30 anni", text: "Un traguardo splendido per un uomo speciale.", image: "", effect: "balloons" },
         { title: "Il nostro viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/foto-2.jpg", effect: "firework-soft" },
+        { title: "Che piccolo", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "firework-soft" },
         { title: "Sguardo", text: "Il modo in cui continui a guardarmi come il primo giorno.", image: "", effect: "hearts" }
     ];
 
