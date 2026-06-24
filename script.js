@@ -362,10 +362,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // MODIFICA QUI IL TESTO DELLA TUA LETTERA
     const paragrafiLettera = [
-        "Trent'anni.",
-        "Mi fermo un secondo a pensare a quanto sia straordinariamente bello aver condiviso un capitolo così importante della mia vita insieme a te.",
-        "Nessun regalo materiale potrebbe eguagliare quello che provo, per questo ho preferito affidarmi ai ricordi e alle mie parole più sincere.",
-        "Buon compleanno, amore della mia vita."
+        "Ciao tesoro mio,",
+        "Questa notte inizia un nuovo capitolo per te, e io volevo riempirne il primo istante con un pensiero fatto solo per te: qualcosa che avesse dentro cura, amore e un po’ di magia.",
+        "Non è facile raccontare quanto una persona possa diventare speciale, ma forse certe cose non hanno bisogno di troppe spiegazioni. Si sentono, si costruiscono piano, si riconoscono nei piccoli gesti, nei ricordi, nei dettagli. E tu, nei miei dettagli, ci sei sempre di più.",
+        "Oggi compi 30 anni e volevo dedicarti qualcosa che fosse unico, proprio come unico è il posto che hai preso nella mia vita. Qualcosa che parlasse di te, di noi e di tutto l’amore con cui ti guardo.",
+        "Spero che entrando in questo piccolo mondo tu possa sentire almeno un po’ della cura, del bene e della magia con cui è nato.",
+        "Buon compleanno amore mio."
     ];
 
     function buildLetterParagraphs() {
