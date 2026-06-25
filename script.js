@@ -436,12 +436,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // Se ne lasci meno, il sistema popolerà automaticamente le restanti con effetti casuali eleganti!
     const stelle = [
         { title: "Il tuo sorriso", text: "La prima cosa che mi ha totalmente conquistato.", image: "", effect: "hearts" },
-        { title: "Noi a Parigi", text: "Quella sera magica in cui ridevamo senza sosta.", image: "assets/images/foto-1.jpg", effect: "confetti" },
-        { title: "Sei Casa", text: "Ovunque mi trovi nel mondo, se ci sei tu sono al sicuro.", image: "", effect: "sparkles" },
+        { title: "Che buffo", text: "", image: "assets/images/img-7.jpg", effect: "hearts" },
+        { title: "Pasticciere", text: "La prima torta che abbiamo preparato insieme.", image: "assets/images/img-3.jpg", effect: "hearts" },
+        { title: "Noi a Parigi", text: "Quella sera magica.", image: "assets/images/img-5.jpg", effect: "hearts" },
+        { title: "Sei Casa", text: "Ovunque mi trovi, se ci sei tu sono al sicuro.", image: "assets/images/img-12.jpg", effect: "sparkles" },
+        { title: "HAHAHAHA", text: "HAHAHAHAHA", image: "assets/images/img-9.jpg", effect: "sparkles" },
         { title: "I tuoi 30 anni", text: "Un traguardo splendido per un uomo speciale.", image: "", effect: "balloons" },
-        { title: "Il nostro viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/foto-2.jpg", effect: "firework-soft" },
-        { title: "Che piccolo", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "firework-soft" },
-        { title: "Sguardo", text: "Il modo in cui continui a guardarmi come il primo giorno.", image: "", effect: "hearts" }
+        { title: "Il nostro primo viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/img-4.jpg", effect: "firework-soft" },
+        { title: "Che bono", text: "", image: "assets/images/img-13.jpg", effect: "firework-soft" },
+        { title: "Che piccolo", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "hearts" },
+        { title: "Credimi", text: "Sto bene con te", image: "assets/images/piccolo.jpg", effect: "hearts" },
+        { title: "Oggi so bello fotomodello", text: "-cit", image: "assets/images/img-8.jpg", effect: "firework-soft" },
+        { title: "Ma cosa sei...", text: "", image: "assets/images/img-10.jpg", effect: "firework-soft" },
+        { title: "Sei anche questo", text: "che tenero", image: "assets/images/img-1.jpg", effect: "confetti" },
+        { title: "La mia maniglia antipanico", text: "", image: "assets/images/img-11.jpg", effect: "firework-soft" },
+        { title: "I tuoi occhi", text: "Il modo in cui continui a guardarmi come il primo giorno.", image: "assets/images/img-6.jpg", effect: "hearts" }
     ];
 
     const TOTAL_STARS = 30;
