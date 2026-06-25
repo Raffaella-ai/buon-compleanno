@@ -333,9 +333,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!desireText) return;
         desireText.classList.add("opacity-0");
         setTimeout(() => {
+            // La frase cambia mantenendo lo stesso identico font/stile, senza scatti
             desireText.innerHTML = "Che ogni tuo desiderio possa trovare sempre la strada per avverarsi. <span style='color:#e8a0b0'>✨</span>";
             desireText.style.color = "#f5e9cf"; 
             desireText.className = "text-lg md:text-xl font-title italic text-glow-champagne transition-all duration-1000 ease-in-out";
+            
+            // Rimuoviamo qualsiasi alterazione dello scale per farla apparire in modo liscio
+            desireText.classList.remove("opacity-0");
+
             const scrollBtn = document.getElementById("scroll-to-letter");
             if (scrollBtn) {
                 scrollBtn.classList.remove("hidden");
@@ -444,8 +449,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "I tuoi 30 anni", text: "Un traguardo splendido per un uomo speciale.", image: "", effect: "balloons" },
         { title: "Il nostro primo viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/img-4.jpg", effect: "firework-soft" },
         { title: "Che bono", text: "", image: "assets/images/img-13.jpg", effect: "firework-soft" },
-        { title: "Che piccolo", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "hearts" },
-        { title: "Credimi", text: "Sto bene con te", image: "assets/images/piccolo.jpg", effect: "hearts" },
+        { title: "Patatino", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "hearts" },
+        { title: "Credimi", text: "Sto bene con te", image: "", effect: "hearts" },
         { title: "Oggi so bello fotomodello", text: "-cit", image: "assets/images/img-8.jpg", effect: "firework-soft" },
         { title: "Ma cosa sei...", text: "", image: "assets/images/img-10.jpg", effect: "firework-soft" },
         { title: "Sei anche questo", text: "che tenero", image: "assets/images/img-1.jpg", effect: "confetti" },
