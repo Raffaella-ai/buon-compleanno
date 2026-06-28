@@ -160,71 +160,41 @@
                 </svg>
             </div>-->
 
-            <div id="rose-wrap" class="w-56 h-72 sm:w-64 sm:h-80 flex items-end justify-center">
-        <svg id="rose-svg" viewBox="0 0 200 280" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+           <div id="rose-wrap" class="w-56 h-64 sm:w-64 sm:h-72 flex items-center justify-center animate-float">
+        <svg id="rose-svg" viewBox="0 0 200 200" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#2d5a2d" />
-                    <stop offset="50%" stop-color="#4d7c4d" />
-                    <stop offset="100%" stop-color="#1e3d1e" />
-                </linearGradient>
-                <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#5a8a5a" />
-                    <stop offset="100%" stop-color="#2d5a2d" />
-                </linearGradient>
-                <linearGradient id="petalDark" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#8b0a1e" />
-                    <stop offset="100%" stop-color="#4a0510" />
+                    <stop offset="50%" stop-color="#c41e3a" />
+                    <stop offset="100%" stop-color="#e8a0b0" />
                 </linearGradient>
-                <linearGradient id="petalMedium" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#c41e3a" />
-                    <stop offset="100%" stop-color="#6b0d1c" />
-                </linearGradient>
-                <linearGradient id="petalLight" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#e23c56" />
-                    <stop offset="100%" stop-color="#9e162b" />
-                </linearGradient>
-                <linearGradient id="petalCore" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#f26d83" />
-                    <stop offset="100%" stop-color="#c41e3a" />
-                </linearGradient>
+                <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#e8a0b0" stop-opacity="1" />
+                    <stop offset="70%" stop-color="#c41e3a" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#8b0a1e" stop-opacity="0" />
+                </radialGradient>
             </defs>
 
-            <g>
-                <path id="rose-stem" d="M100 270 C95 210 105 170 100 135" fill="none" stroke="url(#stemGrad)" stroke-width="4.5" stroke-linecap="round"/>
-                <path class="rose-leaf" d="M97 190 L90 186 L96 182 Z" fill="#2d5a2d" />
-                <path class="rose-leaf" d="M103 165 L110 161 L104 157 Z" fill="#2d5a2d" />
-            </g>
+            <path id="rose-stem" d="M20 100 C20 100 50 100 65 100 L75 75 L85 130 L95 90 L105 105 L115 100 L180 100" 
+                  fill="none" stroke="url(#heartGrad)" stroke-width="2" stroke-linecap="round" opacity="0.4" />
 
-            <g class="rose-leaf">
-                <path d="M98 205 C70 195 50 210 55 235 C78 232 94 222 98 205 Z" fill="url(#leafGrad)"/>
-                <path d="M98 205 C80 212 70 218 57 232" fill="none" stroke="#2d5a2d" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
-            </g>
-            <g class="rose-leaf">
-                <path d="M102 180 C130 170 150 185 145 210 C122 207 106 197 102 180 Z" fill="url(#leafGrad)"/>
-                <path d="M102 180 C118 187 130 195 141 207" fill="none" stroke="#2d5a2d" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+            <g class="rose-bloom">
+                <path class="petal petal-outer" d="M100 160 C50 120 20 90 20 55 C20 25 45 10 70 10 C85 10 95 20 100 30" 
+                      fill="none" stroke="url(#heartGrad)" stroke-width="4" stroke-linecap="round" />
+                <path class="petal petal-outer" d="M100 160 C150 120 180 90 180 55 C180 25 155 10 130 10 C115 10 105 20 100 30" 
+                      fill="none" stroke="url(#heartGrad)" stroke-width="4" stroke-linecap="round" />
             </g>
 
             <g class="rose-bloom">
-                <path class="petal petal-outer" d="M100 135 C65 125 50 85 85 65 C105 85 110 110 100 135 Z" fill="url(#petalDark)"/>
-                <path class="petal petal-outer" d="M100 135 C135 125 150 85 115 65 C95 85 90 110 100 135 Z" fill="url(#petalDark)"/>
+                <path class="petal petal-mid" d="M100 140 C65 105 40 85 40 60 C40 40 55 25 72 25 C85 25 95 35 100 45" 
+                      fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
+                <path class="petal petal-mid" d="M100 140 C135 105 160 85 160 60 C160 40 145 25 128 25 C115 25 105 35 100 45" 
+                      fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
             </g>
 
             <g class="rose-bloom">
-                <path class="petal petal-mid" d="M100 135 C55 135 60 100 80 85 C100 105 105 120 100 135 Z" fill="url(#petalMedium)"/>
-                <path class="petal petal-mid" d="M100 135 C145 135 140 100 120 85 C100 105 95 120 100 135 Z" fill="url(#petalMedium)"/>
-                <path class="petal petal-mid" d="M65 90 C80 65 120 65 135 90 C115 105 85 105 65 90 Z" fill="url(#petalMedium)"/>
-            </g>
-
-            <g class="rose-bloom">
-                <path class="petal petal-core" d="M100 125 C75 110 75 90 100 75 C125 90 125 110 100 125 Z" fill="url(#petalLight)"/>
-                <path class="petal petal-core" d="M82 92 C82 80 100 70 100 75 C100 85 95 100 82 92 Z" fill="url(#petalCore)"/>
-                <path class="petal petal-core" d="M118 92 C118 80 100 70 100 75 C100 85 105 100 118 92 Z" fill="url(#petalCore)"/>
-            </g>
-
-            <g class="rose-bloom">
-                <path class="petal petal-core" d="M100 112 C90 102 92 90 100 88 C108 90 110 102 100 112 Z" fill="url(#petalCore)"/>
-                <ellipse class="petal petal-core" cx="100" cy="98" rx="8" ry="6" fill="#e8a0b0" opacity="0.9"/>
+                <path class="petal petal-core heart-beat" d="M100 125 C80 100 60 85 60 65 C60 50 72 40 85 40 C95 40 100 48 100 48 C100 48 105 40 115 40 C128 40 140 50 140 65 C140 85 120 100 100 125 Z" 
+                      fill="url(#coreGlow)" />
             </g>
         </svg>
     </div>
