@@ -574,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 200);
                     
                     // 3. Dopo 2200ms appare la frase sottostante "oggi, domani, sempre"
-                    setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 1300);
+                    setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 2200);
                     
                     // 4. Dopo 3500ms compare infine la tua firma
                     setTimeout(() => { if (loveSignature) loveSignature.classList.remove("opacity-0"); }, 2400);
