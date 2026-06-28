@@ -446,16 +446,29 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Noi a Parigi", text: "Quella sera magica.", image: "assets/images/img-5.jpg", effect: "hearts" },
         { title: "Sei Casa", text: "Ovunque mi trovi, se ci sei tu sono al sicuro.", image: "assets/images/img-12.jpg", effect: "sparkles" },
         { title: "HAHAHAHA", text: "HAHAHAHAHA", image: "assets/images/img-9.jpg", effect: "sparkles" },
+        { title: "Dai, siamo cariniii", text: "", image: "assets/images/img-17.jpg", effect: "sparkles" },
+        { title: "Beh dai...", text: "", image: "assets/images/img-19.jpg", effect: "sparkles" },
         { title: "I tuoi 30 anni", text: "Un traguardo splendido per un uomo speciale.", image: "", effect: "balloons" },
+        { title: "Patato", text: "", image: "assets/images/img-20.jpg", effect: "balloons" },
         { title: "Il nostro primo viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/img-4.jpg", effect: "firework-soft" },
         { title: "Che bono", text: "", image: "assets/images/img-13.jpg", effect: "firework-soft" },
         { title: "Patatino", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "hearts" },
         { title: "Credimi", text: "Sto bene con te", image: "", effect: "hearts" },
+        { title: "Il bello di noi è che lo abbiamo costruito un pezzetto alla volta.", text: "Sto bene con te", image: "", effect: "hearts" },
         { title: "Oggi so bello fotomodello", text: "-cit", image: "assets/images/img-8.jpg", effect: "firework-soft" },
+        { title: "Tutto ok?", text: "", image: "assets/images/img-16.jpg", effect: "firework-soft" },
+        { title: "Eri in paradiso", text: "", image: "assets/images/img-20.jpg", effect: "confetti" },
         { title: "Ma cosa sei...", text: "", image: "assets/images/img-10.jpg", effect: "firework-soft" },
+        { title: "Grazie di tutto", text: "", image: "", effect: "hearts" },
         { title: "Sei anche questo", text: "che tenero", image: "assets/images/img-1.jpg", effect: "confetti" },
+        { title: "La tua costante", text: "", image: "assets/images/img-15.jpg", effect: "confetti" },
+        { title: "La tua passione", text: "", image: "assets/images/juve.jpg", effect: "firework-soft" },
+        { title: "Siamo anche questo", text: "", image: "assets/images/img-22.jpg", effect: "balloons" },
         { title: "La mia ballerina preferita", text: "", image: "assets/images/img-14.jpg", effect: "confetti" },
+        { title: "Spero di esserci riuscita", text: "13/05/24", image: "assets/images/img-17.jpg", effect: "hearts" },
+        { title: "Sei speciale", text: "", image: "", effect: "hearts" },
         { title: "La mia maniglia antipanico", text: "", image: "assets/images/img-11.jpg", effect: "firework-soft" },
+        { title: "Ti voglio bene", text: "", image: "", effect: "hearts" },
         { title: "I tuoi occhi", text: "Il modo in cui continui a guardarmi come il primo giorno.", image: "assets/images/img-6.jpg", effect: "hearts" }
     ];
 
@@ -571,7 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (loveTitle) loveTitle.classList.remove("opacity-0", "translate-y-6");
                     
                     // 2. Dopo 800ms appare il cuore dal basso in modo morbido
-                    setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 200);
+                    setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 120);
                     
                     // 3. Dopo 2200ms appare la frase sottostante "oggi, domani, sempre"
                     setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 2200);
