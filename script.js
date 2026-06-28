@@ -454,6 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Oggi so bello fotomodello", text: "-cit", image: "assets/images/img-8.jpg", effect: "firework-soft" },
         { title: "Ma cosa sei...", text: "", image: "assets/images/img-10.jpg", effect: "firework-soft" },
         { title: "Sei anche questo", text: "che tenero", image: "assets/images/img-1.jpg", effect: "confetti" },
+        { title: "La mia ballerina preferita", text: "", image: "assets/images/img-14.jpg", effect: "confetti" },
         { title: "La mia maniglia antipanico", text: "", image: "assets/images/img-11.jpg", effect: "firework-soft" },
         { title: "I tuoi occhi", text: "Il modo in cui continui a guardarmi come il primo giorno.", image: "assets/images/img-6.jpg", effect: "hearts" }
     ];
@@ -555,6 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===== SEZIONE 4: INTERSECTION OBSERVER ROSA CHE SBOCCIA =====
     const loveTitle = document.getElementById("love-title");
     const loveSub = document.getElementById("love-sub");
+    const loveSignature = document.getElementById("love-signature"); // <--- Aggiunto questo riferimento
     const roseSvg = document.getElementById("rose-svg");
     const loveSec = document.getElementById("love-section");
 
@@ -567,8 +569,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (loveTitle) loveTitle.classList.remove("opacity-0", "translate-y-6");
                     setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 600);
                     setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 3200);
+                    
+                    // Mostra la firma (apparirà in dissolvenza poco dopo la scritta "oggi, domani, sempre")
+                    setTimeout(() => { if (loveSignature) loveSignature.classList.remove("opacity-0"); }, 3900);
                 }
             });
         }, { threshold: 0.35 }).observe(loveSec);
     }
+
+
 });
