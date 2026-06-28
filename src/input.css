@@ -300,14 +300,14 @@
   .letter-line { opacity: 1 !important; transform: none !important; }
 }
 
-/* Animazione fluida che fa salire il cuore dal basso verso l'alto */
+/* Animazione super veloce e fluida che fa salire l'unico cuore dal basso */
 .cuore-dal-basso {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(15px);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Quando lo script attiva la visualizzazione, rimuove lo spostamento verticale */
+/* Quando la sezione diventa visibile, il cuore si posiziona all'istante */
 #rose-svg.bloomed .cuore-dal-basso {
   opacity: 1;
   transform: translateY(0);
