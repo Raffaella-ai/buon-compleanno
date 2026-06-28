@@ -553,10 +553,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== SEZIONE 4: INTERSECTION OBSERVER ROSA CHE SBOCCIA =====
+    // ===== SEZIONE 4: INTERSECTION OBSERVER ROSA (CUORE) CHE SBOCCIA =====
     const loveTitle = document.getElementById("love-title");
     const loveSub = document.getElementById("love-sub");
-    const loveSignature = document.getElementById("love-signature"); // <--- Aggiunto questo riferimento
+    const loveSignature = document.getElementById("love-signature");
     const roseSvg = document.getElementById("rose-svg");
     const loveSec = document.getElementById("love-section");
 
@@ -566,12 +566,18 @@ document.addEventListener("DOMContentLoaded", () => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && !bloomed) {
                     bloomed = true;
-                    if (loveTitle) loveTitle.classList.remove("opacity-0", "translate-y-6");
-                    setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 600);
-                    setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 3200);
                     
-                    // Mostra la firma (apparirà in dissolvenza poco dopo la scritta "oggi, domani, sempre")
-                    setTimeout(() => { if (loveSignature) loveSignature.classList.remove("opacity-0"); }, 3900);
+                    // 1. Appare subito il titolo "Ti amo"
+                    if (loveTitle) loveTitle.classList.remove("opacity-0", "translate-y-6");
+                    
+                    // 2. Dopo 800ms appare il cuore dal basso in modo morbido
+                    setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 800);
+                    
+                    // 3. Dopo 2200ms appare la frase sottostante "oggi, domani, sempre"
+                    setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 2200);
+                    
+                    // 4. Dopo 3500ms compare infine la tua firma
+                    setTimeout(() => { if (loveSignature) loveSignature.classList.remove("opacity-0"); }, 3500);
                 }
             });
         }, { threshold: 0.35 }).observe(loveSec);
