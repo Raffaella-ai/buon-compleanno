@@ -161,16 +161,26 @@
             </div>-->
 
             <div id="rose-wrap" class="w-24 h-24 flex items-center justify-center">
-        <svg id="rose-svg" viewBox="0 0 100 100" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+        <svg id="rose-svg" viewBox="0 0 24 24" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <filter id="gentle-blur" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="3" />
+                <filter id="smooth-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="0.6" />
                 </filter>
             </defs>
 
             <g class="rose-bloom">
-                <path class="petal petal-core" d="M50 82 C22 59 10 44 10 26 C10 11 22 0 36 0 C44 0 48 4 50 6 C52 4 56 0 64 0 C78 0 90 11 90 26 C90 44 78 59 50 82 Z" 
-                      fill="#c41e3a" filter="url(#gentle-blur)" />
+                <path class="petal petal-outer" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                      fill="#c41e3a" filter="url(#smooth-glow)" opacity="0.4" />
+            </g>
+
+            <g class="rose-bloom">
+                <path class="petal petal-mid" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                      fill="#c41e3a" filter="url(#smooth-glow)" opacity="0.75" />
+            </g>
+
+            <g class="rose-bloom">
+                <path class="petal petal-core" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                      fill="#c41e3a" filter="url(#smooth-glow)" />
             </g>
         </svg>
     </div>
