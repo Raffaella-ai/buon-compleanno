@@ -571,13 +571,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (loveTitle) loveTitle.classList.remove("opacity-0", "translate-y-6");
                     
                     // 2. Dopo 800ms appare il cuore dal basso in modo morbido
-                    setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 300);
+                    setTimeout(() => { if (roseSvg) roseSvg.classList.add("bloomed"); }, 200);
                     
                     // 3. Dopo 2200ms appare la frase sottostante "oggi, domani, sempre"
-                    setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 1500);
+                    setTimeout(() => { if (loveSub) loveSub.classList.remove("opacity-0"); }, 1300);
                     
                     // 4. Dopo 3500ms compare infine la tua firma
-                    setTimeout(() => { if (loveSignature) loveSignature.classList.remove("opacity-0"); }, 2700);
+                    setTimeout(() => { if (loveSignature) loveSignature.classList.remove("opacity-0"); }, 2400);
                 }
             });
         }, { threshold: 0.35 }).observe(loveSec);
