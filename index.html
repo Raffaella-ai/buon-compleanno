@@ -160,41 +160,30 @@
                 </svg>
             </div>-->
 
-           <div id="rose-wrap" class="w-56 h-64 sm:w-64 sm:h-72 flex items-center justify-center animate-float">
-        <svg id="rose-svg" viewBox="0 0 200 200" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+           <svg id="rose-svg" viewBox="0 0 100 100" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#8b0a1e" />
-                    <stop offset="50%" stop-color="#c41e3a" />
+                <linearGradient id="gracefulHeart" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#c41e3a" />
                     <stop offset="100%" stop-color="#e8a0b0" />
                 </linearGradient>
-                <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#e8a0b0" stop-opacity="1" />
-                    <stop offset="70%" stop-color="#c41e3a" stop-opacity="0.8" />
-                    <stop offset="100%" stop-color="#8b0a1e" stop-opacity="0" />
-                </radialGradient>
             </defs>
 
-            <path id="rose-stem" d="M20 100 C20 100 50 100 65 100 L75 75 L85 130 L95 90 L105 105 L115 100 L180 100" 
-                  fill="none" stroke="url(#heartGrad)" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+            <path id="rose-stem" d="M0 55 L35 55 L42 35 L48 70 L54 50 L60 58 L65 55 L100 55" 
+                  fill="none" stroke="url(#gracefulHeart)" stroke-width="1.5" stroke-linecap="round" opacity="0.25" />
 
             <g class="rose-bloom">
-                <path class="petal petal-outer" d="M100 160 C50 120 20 90 20 55 C20 25 45 10 70 10 C85 10 95 20 100 30" 
-                      fill="none" stroke="url(#heartGrad)" stroke-width="4" stroke-linecap="round" />
-                <path class="petal petal-outer" d="M100 160 C150 120 180 90 180 55 C180 25 155 10 130 10 C115 10 105 20 100 30" 
-                      fill="none" stroke="url(#heartGrad)" stroke-width="4" stroke-linecap="round" />
+                <path class="petal petal-outer" d="M50 82 C15 57 -5 37 -5 17 C-5 -2 12 -12 30 -12 C41 -12 47 -5 50 0 C53 -5 59 -12 70 -12 C88 -12 105 -2 105 17 C105 37 85 57 50 82 Z" 
+                      fill="none" stroke="url(#gracefulHeart)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
             </g>
 
             <g class="rose-bloom">
-                <path class="petal petal-mid" d="M100 140 C65 105 40 85 40 60 C40 40 55 25 72 25 C85 25 95 35 100 45" 
-                      fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
-                <path class="petal petal-mid" d="M100 140 C135 105 160 85 160 60 C160 40 145 25 128 25 C115 25 105 35 100 45" 
-                      fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
+                <path class="petal petal-mid" d="M25 5 C18 5 10 12 10 22 C10 32 22 45 38 58" 
+                      fill="none" stroke="#fdf6ec" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
             </g>
 
             <g class="rose-bloom">
-                <path class="petal petal-core heart-beat" d="M100 125 C80 100 60 85 60 65 C60 50 72 40 85 40 C95 40 100 48 100 48 C100 48 105 40 115 40 C128 40 140 50 140 65 C140 85 120 100 100 125 Z" 
-                      fill="url(#coreGlow)" />
+                <path class="petal petal-core heart-beat" d="M50 70 C28 52 14 38 14 24 C14 11 24 3 36 3 C43 3 48 7 50 9 C52 7 57 3 64 3 C76 3 86 11 86 24 C86 38 72 52 50 70 Z" 
+                      fill="#c41e3a" opacity="0.85" />
             </g>
         </svg>
     </div>
