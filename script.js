@@ -449,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Dai, siamo cariniii", text: "", image: "assets/images/img-18.jpg", effect: "sparkles" },
         { title: "Beh dai...", text: "", image: "assets/images/img-19.jpg", effect: "sparkles" },
         { title: "I tuoi 30 anni", text: "Un traguardo splendido per un uomo speciale.", image: "", effect: "balloons" },
-        { title: "Patato", text: "", image: "assets/images/img-20.jpg", effect: "balloons" },
+        { title: "Patato", text: "", image: "assets/images/img-21.jpg", effect: "balloons" },
         { title: "Il nostro primo viaggio", text: "Uno dei ricordi più intensi e spettacolari di sempre.", image: "assets/images/img-4.jpg", effect: "firework-soft" },
         { title: "Che bono", text: "", image: "assets/images/img-13.jpg", effect: "firework-soft" },
         { title: "Patatino", text: "con stile già da bambino", image: "assets/images/piccolo.jpg", effect: "hearts" },
